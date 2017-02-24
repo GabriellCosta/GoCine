@@ -37,18 +37,22 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> 
   @Override
   public void onBindViewHolder(PopularMoviesVH holder, int position) {
     final PopularMovieResponseVO popularMovieVO = popularMovieVOs.get(position);
-    Context context = holder.itemView.getContext();
-    Picasso.with(context)
-        .load(context.getResources()
-            .getString(R.string.api_image_url,
-                context.getResources().getString(R.string.api_poster_size),
-                popularMovieVO.getPosterPath()))
-        .into(holder.imageView);
+    loadImage(holder.imageView, popularMovieVO);
   }
 
   @Override
   public int getItemCount() {
     return popularMovieVOs.size();
+  }
+
+  private void loadImage(final ImageView imageView, final PopularMovieResponseVO popularMovieVO) {
+    Context context = imageView.getContext();
+    Picasso.with(context)
+        .load(context.getResources()
+            .getString(R.string.api_image_url,
+                context.getResources().getString(R.string.api_poster_size),
+                popularMovieVO.getPosterPath()))
+        .into(imageView);
   }
 
   class PopularMoviesVH extends RecyclerView.ViewHolder {
