@@ -14,6 +14,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements MainView {
 
   private MainPresenter mainPresenter;
+  private final int GRID_SIZE = 2;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
   public void setPopularMovieList(List<PopularMovieResponseVO> popularMovieList) {
     final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_main);
     recyclerView.setAdapter(new PopularMoviesAdapter(popularMovieList));
-    recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+    recyclerView.setLayoutManager(new GridLayoutManager(this, GRID_SIZE));
   }
 
   @Override
