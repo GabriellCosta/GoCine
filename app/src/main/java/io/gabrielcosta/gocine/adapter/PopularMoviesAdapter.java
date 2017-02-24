@@ -1,5 +1,6 @@
 package io.gabrielcosta.gocine.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,8 +37,12 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> 
   @Override
   public void onBindViewHolder(PopularMoviesVH holder, int position) {
     final PopularMovieResponseVO popularMovieVO = popularMovieVOs.get(position);
-    Picasso.with(holder.imageView.getContext())
-        .load("http://image.tmdb.org/t/p/w185" + popularMovieVO.getPosterPath())
+    Context context = holder.itemView.getContext();
+    Picasso.with(context)
+        .load(context.getResources()
+            .getString(R.string.api_image_url,
+                context.getResources().getString(R.string.api_poster_size),
+                popularMovieVO.getPosterPath()))
         .into(holder.imageView);
   }
 

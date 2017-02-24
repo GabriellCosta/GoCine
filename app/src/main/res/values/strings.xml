@@ -1,3 +1,5 @@
 <resources>
   <string name="app_name">GoCine</string>
+
+  <string name="api_image_url">http://image.tmdb.org/t/p/%1$s%2$s</string>
 </resources>
