@@ -2,6 +2,7 @@ package io.gabrielcosta.gocine.entity.dto;
 
 import com.google.gson.annotations.SerializedName;
 import io.gabrielcosta.gocine.entity.vo.PopularMovieResponseVO;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,5 +26,21 @@ public final class PopularMoviesResponseDTO {
     this.popularMovie = popularMovie;
     this.totalResults = totalResults;
     this.totalPages = totalPages;
+  }
+
+  public int getPage() {
+    return page;
+  }
+
+  public List<PopularMovieResponseVO> getPopularMovie() {
+    return Collections.unmodifiableList(popularMovie);
+  }
+
+  public int getTotalResults() {
+    return totalResults;
+  }
+
+  public int getTotalPages() {
+    return totalPages;
   }
 }
