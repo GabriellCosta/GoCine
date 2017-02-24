@@ -38,6 +38,7 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> 
   public void onBindViewHolder(PopularMoviesVH holder, int position) {
     final PopularMovieResponseVO popularMovieVO = popularMovieVOs.get(position);
     loadImage(holder.imageView, popularMovieVO);
+    holder.itemView.setContentDescription(popularMovieVO.getTitle());
   }
 
   @Override
