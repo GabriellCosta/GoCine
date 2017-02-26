@@ -15,6 +15,7 @@ public final class MainPresenter {
 
   private final MainView view;
   private final PopularMovieServiceImpl popularMovieService;
+  private int pageNumber;
 
 
   private MainPresenter(MainView view) {
@@ -27,20 +28,23 @@ public final class MainPresenter {
   }
 
   public void fetchPopularMovies() {
-    popularMovieService.fetchPopularMovies().enqueue(new Callback<PopularMoviesResponseDTO>() {
-      @Override
-      public void onResponse(Call<PopularMoviesResponseDTO> call,
-          Response<PopularMoviesResponseDTO> response) {
-        if (response.code() == 200) {
-          view.setPopularMovieList(response.body().getPopularMovie());
-        }
-      }
+    popularMovieService.fetchPopularMovies(++pageNumber)
+        .enqueue(new Callback<PopularMoviesResponseDTO>() {
+          @Override
+          public void onResponse(Call<PopularMoviesResponseDTO> call,
+              Response<PopularMoviesResponseDTO> response) {
+            if (response.code() == 200) {
+                view.setPopularMovieList(response.body().getPopularMovie());
+                pageNumber = response.body().getPage();
 
-      @Override
-      public void onFailure(Call<PopularMoviesResponseDTO> call, Throwable t) {
-        view.onError(t.getMessage());
-      }
-    });
+            }
+          }
+
+          @Override
+          public void onFailure(Call<PopularMoviesResponseDTO> call, Throwable t) {
+            view.onError(t.getMessage());
+          }
+        });
   }
 
 }

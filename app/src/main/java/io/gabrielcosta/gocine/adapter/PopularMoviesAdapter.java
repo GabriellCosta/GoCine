@@ -10,6 +10,7 @@ import com.squareup.picasso.Picasso;
 import io.gabrielcosta.gocine.R;
 import io.gabrielcosta.gocine.adapter.PopularMoviesAdapter.PopularMoviesVH;
 import io.gabrielcosta.gocine.entity.vo.PopularMovieResponseVO;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,12 +19,7 @@ import java.util.List;
 
 public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> {
 
-  private final List<PopularMovieResponseVO> popularMovieVOs;
-
-  public PopularMoviesAdapter(
-      List<PopularMovieResponseVO> popularMovieVOs) {
-    this.popularMovieVOs = popularMovieVOs;
-  }
+  private final List<PopularMovieResponseVO> popularMovieVOs = new ArrayList<>();
 
   @Override
   public PopularMoviesVH onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,6 +42,11 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> 
     return popularMovieVOs.size();
   }
 
+  public void addItens(final List<PopularMovieResponseVO> popularMovieVOs) {
+    this.popularMovieVOs.addAll(popularMovieVOs);
+    notifyDataSetChanged();
+  }
+
   private void loadImage(final ImageView imageView, final PopularMovieResponseVO popularMovieVO) {
     Context context = imageView.getContext();
     Picasso.with(context)
@@ -53,6 +54,7 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> 
             .getString(R.string.api_image_url,
                 context.getResources().getString(R.string.api_poster_size),
                 popularMovieVO.getPosterPath()))
+        .placeholder(R.drawable.progress_animation)
         .into(imageView);
   }
 

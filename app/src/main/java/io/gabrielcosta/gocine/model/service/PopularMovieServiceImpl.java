@@ -12,8 +12,8 @@ public class PopularMovieServiceImpl extends AbstractRetrofitServiceCall {
 
   private final PopularMoviesService retrofit = getService(PopularMoviesService.class);
 
-  public Call<PopularMoviesResponseDTO> fetchPopularMovies() {
-    return retrofit.fetchPopularMovies();
+  public Call<PopularMoviesResponseDTO> fetchPopularMovies(final int page) {
+    return retrofit.fetchPopularMovies(page);
   }
 
 }
