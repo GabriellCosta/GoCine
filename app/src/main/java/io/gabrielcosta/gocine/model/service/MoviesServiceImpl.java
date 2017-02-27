@@ -12,8 +12,8 @@ public class MoviesServiceImpl extends AbstractRetrofitServiceCall {
 
   private final MoviesService retrofit = getService(MoviesService.class);
 
-  public Call<MoviesResponseDTO> fetchMovies(final int page) {
-    return retrofit.fetchMovies(page);
+  public Call<MoviesResponseDTO> fetchMovies(final int page, final MovieEndpointType listType) {
+    return retrofit.fetchMovies(listType.getEndpoint(), page);
   }
 
 }

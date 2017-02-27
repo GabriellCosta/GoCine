@@ -2,6 +2,7 @@ package io.gabrielcosta.gocine.presenter;
 
 import io.gabrielcosta.gocine.entity.dto.MoviesResponseDTO;
 import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
+import io.gabrielcosta.gocine.model.service.MovieEndpointType;
 import io.gabrielcosta.gocine.model.service.MoviesServiceImpl;
 import io.gabrielcosta.gocine.view.MainView;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public final class MainPresenter {
   private MoviesServiceImpl popularMovieService = new MoviesServiceImpl();
   private int pageNumber;
   private List<MoviesResponseVO> movieResponseVOs = new ArrayList<>();
+  private MovieEndpointType movieType = MovieEndpointType.POPULAR;
 
   private MainPresenter() {
   }
@@ -45,7 +47,7 @@ public final class MainPresenter {
   }
 
   private void getPopularMoviesFromServer(final int pageNumber) {
-    popularMovieService.fetchMovies(pageNumber)
+    popularMovieService.fetchMovies(pageNumber, movieType)
         .enqueue(new Callback<MoviesResponseDTO>() {
           @Override
           public void onResponse(Call<MoviesResponseDTO> call,

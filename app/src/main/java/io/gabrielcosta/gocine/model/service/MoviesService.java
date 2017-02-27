@@ -4,6 +4,7 @@ import io.gabrielcosta.gocine.entity.dto.MoviesResponseDTO;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 /**
  * Created by gabriel on 2/24/17.
@@ -12,8 +13,9 @@ import retrofit2.http.Query;
 interface MoviesService {
 
   String MOVIE_POPULAR_ENDPOINT = "movie/popular";
+  String MOVIE_TOP_RATED_ENDPOINT = "movie/top_rated";
 
-  @GET(MOVIE_POPULAR_ENDPOINT)
-  Call<MoviesResponseDTO> fetchMovies(@Query("page") int page);
+  @GET
+  Call<MoviesResponseDTO> fetchMovies(@Url String url, @Query("page") int page);
 
 }
