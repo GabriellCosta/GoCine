@@ -30,11 +30,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
   }
 
   @Override
-  public void refresh(List<PopularMovieResponseVO> popularMovieList) {
-
-  }
-
-  @Override
   public void setPopularMovieList(List<PopularMovieResponseVO> popularMovieList) {
     adapter.addItens(popularMovieList);
   }

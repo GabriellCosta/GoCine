@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface MainView {
 
-  void refresh(final List<PopularMovieResponseVO> popularMovieList);
-
   void setPopularMovieList(final List<PopularMovieResponseVO> popularMovieList);
 
   void onError(final String errorMessage);
