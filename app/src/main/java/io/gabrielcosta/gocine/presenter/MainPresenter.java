@@ -16,12 +16,13 @@ import retrofit2.Response;
 
 public final class MainPresenter {
 
-  public static final int SUCESS_RESPONSE = 200;
+  private static final int SUCESS_RESPONSE = 200;
+  private static final MainPresenter presenter = new MainPresenter();
+
   private MainView view;
   private PopularMovieServiceImpl popularMovieService = new PopularMovieServiceImpl();
   private int pageNumber;
   private List<PopularMovieResponseVO> movieResponseVOs = new ArrayList<>();
-  private static final MainPresenter presenter = new MainPresenter();
 
   private MainPresenter() {
   }
