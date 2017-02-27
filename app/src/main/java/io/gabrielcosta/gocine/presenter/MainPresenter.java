@@ -21,7 +21,7 @@ public final class MainPresenter {
   private PopularMovieServiceImpl popularMovieService = new PopularMovieServiceImpl();
   private int pageNumber;
   private List<PopularMovieResponseVO> movieResponseVOs = new ArrayList<>();
-  private static MainPresenter presenter = new MainPresenter();
+  private static final MainPresenter presenter = new MainPresenter();
 
   private MainPresenter() {
   }
