@@ -34,19 +34,19 @@ public final class MainPresenter {
     return presenter;
   }
 
-  public void fetchPopularMovies() {
+  public void fetchMovies() {
     if (movieResponseVOs == null || movieResponseVOs.isEmpty()) {
-      getPopularMoviesFromServer(++pageNumber);
+      getMoviesFromServer(++pageNumber);
     } else {
       view.setPopularMovieList(movieResponseVOs);
     }
   }
 
   public void getNextMoviePage() {
-    getPopularMoviesFromServer(++pageNumber);
+    getMoviesFromServer(++pageNumber);
   }
 
-  private void getPopularMoviesFromServer(final int pageNumber) {
+  private void getMoviesFromServer(final int pageNumber) {
     popularMovieService.fetchMovies(pageNumber, movieType)
         .enqueue(new Callback<MoviesResponseDTO>() {
           @Override

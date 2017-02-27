@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity implements MainView {
 
     mainPresenter = MainPresenter.newInstance(this);
     initRecycler();
-    mainPresenter.fetchPopularMovies();
+    mainPresenter.fetchMovies();
 
   }
 
