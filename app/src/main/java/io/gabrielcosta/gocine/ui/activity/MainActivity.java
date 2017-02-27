@@ -13,8 +13,11 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity implements MainView {
 
+  private static final String SAVED_LAYOUT_MANAGER = "SAVED_LAYOUT_MANAGER";
   private MainPresenter mainPresenter;
   private final int GRID_SIZE = 2;
+  private RecyclerView recyclerView;
+  private GridLayoutManager gridLayoutManager;
   private PopularMoviesAdapter adapter;
 
   @Override
@@ -29,6 +32,20 @@ public class MainActivity extends BaseActivity implements MainView {
   }
 
   @Override
+  protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState
+        .putParcelable(SAVED_LAYOUT_MANAGER, recyclerView.getLayoutManager().onSaveInstanceState());
+  }
+
+  @Override
+  protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    gridLayoutManager
+        .onRestoreInstanceState(savedInstanceState.getParcelable(SAVED_LAYOUT_MANAGER));
+    super.onRestoreInstanceState(savedInstanceState);
+  }
+
+  @Override
   public void setPopularMovieList(List<PopularMovieResponseVO> popularMovieList) {
     adapter.addItens(popularMovieList);
   }
@@ -39,15 +56,15 @@ public class MainActivity extends BaseActivity implements MainView {
   }
 
   private void initRecycler() {
-    final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_main);
+    recyclerView = (RecyclerView) findViewById(R.id.rv_main);
     adapter = new PopularMoviesAdapter();
     recyclerView.setAdapter(adapter);
-    final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, GRID_SIZE);
+    gridLayoutManager = new GridLayoutManager(this, GRID_SIZE);
     recyclerView.setLayoutManager(gridLayoutManager);
     recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(gridLayoutManager) {
       @Override
       public void onLoadMore(final int currentPage) {
-        mainPresenter.fetchPopularMovies();
+        mainPresenter.getNextMoviePage();
       }
     });
   }

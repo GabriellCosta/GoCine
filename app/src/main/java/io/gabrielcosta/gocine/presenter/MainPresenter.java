@@ -1,8 +1,11 @@
 package io.gabrielcosta.gocine.presenter;
 
 import io.gabrielcosta.gocine.entity.dto.PopularMoviesResponseDTO;
+import io.gabrielcosta.gocine.entity.vo.PopularMovieResponseVO;
 import io.gabrielcosta.gocine.model.service.PopularMovieServiceImpl;
 import io.gabrielcosta.gocine.view.MainView;
+import java.util.ArrayList;
+import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -13,30 +16,41 @@ import retrofit2.Response;
 
 public final class MainPresenter {
 
-  private final MainView view;
-  private final PopularMovieServiceImpl popularMovieService;
+  public static final int SUCESS_RESPONSE = 200;
+  private MainView view;
+  private PopularMovieServiceImpl popularMovieService = new PopularMovieServiceImpl();
   private int pageNumber;
+  private List<PopularMovieResponseVO> movieResponseVOs = new ArrayList<>();
+  private static MainPresenter presenter = new MainPresenter();
 
-
-  private MainPresenter(MainView view) {
-    this.view = view;
-    popularMovieService = new PopularMovieServiceImpl();
+  private MainPresenter() {
   }
 
   public static MainPresenter newInstance(final MainView view) {
-    return new MainPresenter(view);
+    presenter.view = view;
+    return presenter;
   }
 
   public void fetchPopularMovies() {
-    popularMovieService.fetchPopularMovies(++pageNumber)
+    if (movieResponseVOs == null || movieResponseVOs.isEmpty()) {
+      getPopularMoviesFromServer(++pageNumber);
+    } else {
+      view.setPopularMovieList(movieResponseVOs);
+    }
+  }
+
+  public void getNextMoviePage() {
+    getPopularMoviesFromServer(++pageNumber);
+  }
+
+  private void getPopularMoviesFromServer(final int pageNumber) {
+    popularMovieService.fetchPopularMovies(pageNumber)
         .enqueue(new Callback<PopularMoviesResponseDTO>() {
           @Override
           public void onResponse(Call<PopularMoviesResponseDTO> call,
               Response<PopularMoviesResponseDTO> response) {
-            if (response.code() == 200) {
-                view.setPopularMovieList(response.body().getPopularMovie());
-                pageNumber = response.body().getPage();
-
+            if (response.code() == SUCESS_RESPONSE) {
+              sucessResponse(response);
             }
           }
 
@@ -45,6 +59,12 @@ public final class MainPresenter {
             view.onError(t.getMessage());
           }
         });
+  }
+
+  private void sucessResponse(final Response<PopularMoviesResponseDTO> response) {
+    view.setPopularMovieList(response.body().getPopularMovie());
+    movieResponseVOs.addAll(response.body().getPopularMovie());
+    MainPresenter.this.pageNumber = response.body().getPage();
   }
 
 }
