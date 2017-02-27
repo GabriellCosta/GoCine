@@ -5,7 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import io.gabrielcosta.gocine.R;
 import io.gabrielcosta.gocine.adapter.PopularMoviesAdapter;
-import io.gabrielcosta.gocine.entity.vo.PopularMovieResponseVO;
+import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
 import io.gabrielcosta.gocine.presenter.MainPresenter;
 import io.gabrielcosta.gocine.util.EndlessRecyclerOnScrollListener;
 import io.gabrielcosta.gocine.view.MainView;
@@ -46,8 +46,8 @@ public class MainActivity extends BaseActivity implements MainView {
   }
 
   @Override
-  public void setPopularMovieList(List<PopularMovieResponseVO> popularMovieList) {
-    adapter.addItens(popularMovieList);
+  public void setPopularMovieList(List<MoviesResponseVO> movieList) {
+    adapter.addItens(movieList);
   }
 
   @Override

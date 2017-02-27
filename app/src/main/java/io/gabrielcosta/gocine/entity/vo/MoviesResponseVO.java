@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Collections;
 import java.util.List;
 
-public final class PopularMovieResponseVO {
+public final class MoviesResponseVO {
 
   @SerializedName("poster_path")
   private final String posterPath;
@@ -35,7 +35,7 @@ public final class PopularMovieResponseVO {
   @SerializedName("vote_average")
   private final double voteAverage;
 
-  private PopularMovieResponseVO(String posterPath, boolean adult, String overview,
+  private MoviesResponseVO(String posterPath, boolean adult, String overview,
       String releaseDate, List<Integer> genreIds, int id, String originalTitle,
       String originalLanguage, String title, String backdropPath, double popularity, int voteCount,
       boolean video, double voteAverage) {

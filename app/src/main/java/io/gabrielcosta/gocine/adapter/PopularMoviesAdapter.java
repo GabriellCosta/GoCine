@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import io.gabrielcosta.gocine.R;
 import io.gabrielcosta.gocine.adapter.PopularMoviesAdapter.PopularMoviesVH;
-import io.gabrielcosta.gocine.entity.vo.PopularMovieResponseVO;
+import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> {
 
-  private final List<PopularMovieResponseVO> popularMovieVOs = new ArrayList<>();
+  private final List<MoviesResponseVO> popularMovieVOs = new ArrayList<>();
 
   @Override
   public PopularMoviesVH onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,7 +32,7 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> 
 
   @Override
   public void onBindViewHolder(PopularMoviesVH holder, int position) {
-    final PopularMovieResponseVO popularMovieVO = popularMovieVOs.get(position);
+    final MoviesResponseVO popularMovieVO = popularMovieVOs.get(position);
     loadImage(holder.imageView, popularMovieVO);
     holder.itemView.setContentDescription(popularMovieVO.getTitle());
   }
@@ -42,12 +42,12 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> 
     return popularMovieVOs.size();
   }
 
-  public void addItens(final List<PopularMovieResponseVO> popularMovieVOs) {
+  public void addItens(final List<MoviesResponseVO> popularMovieVOs) {
     this.popularMovieVOs.addAll(popularMovieVOs);
     notifyDataSetChanged();
   }
 
-  private void loadImage(final ImageView imageView, final PopularMovieResponseVO popularMovieVO) {
+  private void loadImage(final ImageView imageView, final MoviesResponseVO popularMovieVO) {
     Context context = imageView.getContext();
     Picasso.with(context)
         .load(context.getResources()

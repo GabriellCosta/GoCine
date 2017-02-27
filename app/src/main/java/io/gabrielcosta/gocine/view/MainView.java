@@ -1,6 +1,6 @@
 package io.gabrielcosta.gocine.view;
 
-import io.gabrielcosta.gocine.entity.vo.PopularMovieResponseVO;
+import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
 import java.util.List;
 
 /**
@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface MainView {
 
-  void setPopularMovieList(final List<PopularMovieResponseVO> popularMovieList);
+  void setPopularMovieList(final List<MoviesResponseVO> popularMovieList);
 
   void onError(final String errorMessage);
 

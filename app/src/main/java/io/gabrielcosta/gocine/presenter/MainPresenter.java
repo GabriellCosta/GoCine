@@ -1,8 +1,8 @@
 package io.gabrielcosta.gocine.presenter;
 
-import io.gabrielcosta.gocine.entity.dto.PopularMoviesResponseDTO;
-import io.gabrielcosta.gocine.entity.vo.PopularMovieResponseVO;
-import io.gabrielcosta.gocine.model.service.PopularMovieServiceImpl;
+import io.gabrielcosta.gocine.entity.dto.MoviesResponseDTO;
+import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
+import io.gabrielcosta.gocine.model.service.MoviesServiceImpl;
 import io.gabrielcosta.gocine.view.MainView;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,9 @@ public final class MainPresenter {
   private static final MainPresenter presenter = new MainPresenter();
 
   private MainView view;
-  private PopularMovieServiceImpl popularMovieService = new PopularMovieServiceImpl();
+  private MoviesServiceImpl popularMovieService = new MoviesServiceImpl();
   private int pageNumber;
-  private List<PopularMovieResponseVO> movieResponseVOs = new ArrayList<>();
+  private List<MoviesResponseVO> movieResponseVOs = new ArrayList<>();
 
   private MainPresenter() {
   }
@@ -45,26 +45,26 @@ public final class MainPresenter {
   }
 
   private void getPopularMoviesFromServer(final int pageNumber) {
-    popularMovieService.fetchPopularMovies(pageNumber)
-        .enqueue(new Callback<PopularMoviesResponseDTO>() {
+    popularMovieService.fetchMovies(pageNumber)
+        .enqueue(new Callback<MoviesResponseDTO>() {
           @Override
-          public void onResponse(Call<PopularMoviesResponseDTO> call,
-              Response<PopularMoviesResponseDTO> response) {
+          public void onResponse(Call<MoviesResponseDTO> call,
+              Response<MoviesResponseDTO> response) {
             if (response.code() == SUCESS_RESPONSE) {
               sucessResponse(response);
             }
           }
 
           @Override
-          public void onFailure(Call<PopularMoviesResponseDTO> call, Throwable t) {
+          public void onFailure(Call<MoviesResponseDTO> call, Throwable t) {
             view.onError(t.getMessage());
           }
         });
   }
 
-  private void sucessResponse(final Response<PopularMoviesResponseDTO> response) {
-    view.setPopularMovieList(response.body().getPopularMovie());
-    movieResponseVOs.addAll(response.body().getPopularMovie());
+  private void sucessResponse(final Response<MoviesResponseDTO> response) {
+    view.setPopularMovieList(response.body().getMovies());
+    movieResponseVOs.addAll(response.body().getMovies());
     MainPresenter.this.pageNumber = response.body().getPage();
   }
 
