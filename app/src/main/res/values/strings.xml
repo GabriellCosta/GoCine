@@ -2,4 +2,6 @@
   <string name="app_name">GoCine</string>
 
   <string name="api_image_url">http://image.tmdb.org/t/p/%1$s%2$s</string>
+  <string name="main_menu_popular">popular</string>
+  <string name="main_menu_top_rated">Top Rated</string>
 </resources>

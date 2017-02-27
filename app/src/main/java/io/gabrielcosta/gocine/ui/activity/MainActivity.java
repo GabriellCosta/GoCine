@@ -3,6 +3,8 @@ package io.gabrielcosta.gocine.ui.activity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import io.gabrielcosta.gocine.R;
 import io.gabrielcosta.gocine.adapter.PopularMoviesAdapter;
 import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
@@ -24,6 +26,7 @@ public class MainActivity extends BaseActivity implements MainView {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
     mainPresenter = MainPresenter.newInstance(this);
     initRecycler();
@@ -43,6 +46,12 @@ public class MainActivity extends BaseActivity implements MainView {
     gridLayoutManager
         .onRestoreInstanceState(savedInstanceState.getParcelable(SAVED_LAYOUT_MANAGER));
     super.onRestoreInstanceState(savedInstanceState);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.main_menu, menu);
+    return Boolean.TRUE;
   }
 
   @Override
