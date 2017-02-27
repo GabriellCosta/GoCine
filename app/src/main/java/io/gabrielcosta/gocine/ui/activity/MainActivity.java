@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity implements MainView {
 
   @Override
   public void onError(String errorMessage) {
-
+    showErrorMessage(errorMessage);
   }
 
   private void initRecycler() {
