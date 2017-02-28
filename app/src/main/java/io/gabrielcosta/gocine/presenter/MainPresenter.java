@@ -20,7 +20,6 @@ import retrofit2.Response;
 public final class MainPresenter {
 
   private static final int SUCESS_RESPONSE = 200;
-  private static final MainPresenter presenter = new MainPresenter();
 
   private MainView view;
   private MoviesServiceImpl popularMovieService;
@@ -32,6 +31,7 @@ public final class MainPresenter {
   }
 
   public static MainPresenter newInstance(final MainView view) {
+    final MainPresenter presenter = new MainPresenter();
     presenter.view = view;
     presenter.popularMovieService = MoviesServiceImpl
         .newInstance(BuildConfig.API_URL, BuildConfig.API_KEY);
@@ -39,6 +39,7 @@ public final class MainPresenter {
   }
 
   static MainPresenter newInstance(final MainView view, MoviesServiceImpl popularMovieService) {
+    final MainPresenter presenter = new MainPresenter();
     presenter.view = view;
     presenter.popularMovieService = popularMovieService;
     return presenter;
