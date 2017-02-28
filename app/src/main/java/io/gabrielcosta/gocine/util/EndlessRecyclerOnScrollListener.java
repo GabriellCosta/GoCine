@@ -9,11 +9,14 @@ import android.support.v7.widget.RecyclerView;
 
 public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
 
-  private static int VISIBLE_THRESHOLD = 5; // The minimum amount of items to have below your current scroll position before loading more.
-  private int previousTotal = 0; // The total number of items in the dataset after the last load
+  private static final int FIRST_PAGE = 1;
+  private static final int VISIBLE_THRESHOLD = 5; // The minimum amount of items to have below your current scroll position before loading more.
+  private static final int INITIAL_TOTAL = 0;
+
+  private int previousTotal = INITIAL_TOTAL; // The total number of items in the dataset after the last load
   private boolean loading = true; // True if we are still waiting for the last set of data to load.
 
-  private int current_page = 1;
+  private int currentPage = FIRST_PAGE;
 
   private LinearLayoutManager linearLayoutManager;
 
@@ -40,8 +43,8 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
   }
 
   public void reset() {
-    previousTotal = 0;
-    current_page = 1;
+    previousTotal = INITIAL_TOTAL;
+    currentPage = FIRST_PAGE;
   }
 
   protected abstract void onLoadMore(final int currentPage);
@@ -52,8 +55,8 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
   }
 
   private void endRechead() {
-    current_page++;
-    onLoadMore(current_page);
+    currentPage++;
+    onLoadMore(currentPage);
     loading = Boolean.TRUE;
   }
 }
