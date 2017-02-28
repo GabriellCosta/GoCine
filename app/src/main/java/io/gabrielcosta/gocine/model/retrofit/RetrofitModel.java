@@ -10,6 +10,6 @@ import retrofit2.Retrofit;
 public interface RetrofitModel {
 
   @NonNull
-  Retrofit getRetrofit();
+  Retrofit getRetrofit(final String baseUrl, final String apiKey);
 
 }

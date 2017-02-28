@@ -1,5 +1,6 @@
 package io.gabrielcosta.gocine.presenter;
 
+import io.gabrielcosta.gocine.BuildConfig;
 import io.gabrielcosta.gocine.entity.dto.MoviesResponseDTO;
 import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
 import io.gabrielcosta.gocine.model.service.MovieEndpointType;
@@ -22,7 +23,7 @@ public final class MainPresenter {
   private static final MainPresenter presenter = new MainPresenter();
 
   private MainView view;
-  private MoviesServiceImpl popularMovieService = new MoviesServiceImpl();
+  private MoviesServiceImpl popularMovieService;
   private int pageNumber;
   private List<MoviesResponseVO> movieResponseVOs = new ArrayList<>();
   private MovieEndpointType movieType = MovieEndpointType.POPULAR;
@@ -32,6 +33,14 @@ public final class MainPresenter {
 
   public static MainPresenter newInstance(final MainView view) {
     presenter.view = view;
+    presenter.popularMovieService = MoviesServiceImpl
+        .newInstance(BuildConfig.API_URL, BuildConfig.API_KEY);
+    return presenter;
+  }
+
+  static MainPresenter newInstance(final MainView view, MoviesServiceImpl popularMovieService) {
+    presenter.view = view;
+    presenter.popularMovieService = popularMovieService;
     return presenter;
   }
 

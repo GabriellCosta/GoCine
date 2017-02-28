@@ -1,9 +1,6 @@
 package io.gabrielcosta.gocine.model.retrofit;
 
-import static io.gabrielcosta.gocine.BuildConfig.API_KEY;
-
 import android.support.annotation.NonNull;
-import io.gabrielcosta.gocine.BuildConfig;
 import java.io.IOException;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -22,7 +19,7 @@ public class RetrofitModelImpl implements RetrofitModel {
 
   private static RetrofitModelImpl ourInstance = new RetrofitModelImpl();
 
-  static RetrofitModelImpl getInstance() {
+  public static RetrofitModelImpl getInstance() {
     return ourInstance;
   }
 
@@ -31,21 +28,21 @@ public class RetrofitModelImpl implements RetrofitModel {
 
   @NonNull
   @Override
-  public Retrofit getRetrofit() {
+  public Retrofit getRetrofit(final String baseUrl, final String apiKey) {
     return new Retrofit.Builder()
-        .baseUrl(BuildConfig.API_URL)
+        .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
-        .client(buildOkHttpClient())
+        .client(buildOkHttpClient(apiKey))
         .build();
   }
 
-  private OkHttpClient buildOkHttpClient() {
+  private OkHttpClient buildOkHttpClient(final String apiKey) {
     HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
     logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
     OkHttpClient.Builder httpClient =
         new OkHttpClient.Builder();
-    httpClient.addInterceptor(new MovieApiInterceptor());
+    httpClient.addInterceptor(new MovieApiInterceptor(apiKey));
     httpClient.addInterceptor(logging);
 
     return httpClient.build();
@@ -54,6 +51,11 @@ public class RetrofitModelImpl implements RetrofitModel {
   private class MovieApiInterceptor implements Interceptor {
 
     private static final String QUERY_KEY = "api_key";
+    private final String apiKey;
+
+    private MovieApiInterceptor(final String apiKey) {
+      this.apiKey = apiKey;
+    }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -61,7 +63,7 @@ public class RetrofitModelImpl implements RetrofitModel {
       HttpUrl originalHttpUrl = original.url();
 
       HttpUrl url = originalHttpUrl.newBuilder()
-          .addQueryParameter(QUERY_KEY, API_KEY)
+          .addQueryParameter(QUERY_KEY, apiKey)
           .build();
 
       Request.Builder requestBuilder = original.newBuilder()

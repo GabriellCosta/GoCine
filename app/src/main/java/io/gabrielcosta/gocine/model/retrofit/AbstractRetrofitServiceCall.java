@@ -8,7 +8,11 @@ import retrofit2.Retrofit;
 
 public abstract class AbstractRetrofitServiceCall {
 
-  private Retrofit retrofitModel = RetrofitModelImpl.getInstance().getRetrofit();
+  private Retrofit retrofitModel;
+
+  public AbstractRetrofitServiceCall(Retrofit retrofitModel) {
+    this.retrofitModel = retrofitModel;
+  }
 
   protected <T> T getService(Class<T> t) {
     return retrofitModel.create(t);
