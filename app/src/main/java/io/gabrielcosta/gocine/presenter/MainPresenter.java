@@ -58,6 +58,11 @@ public final class MainPresenter {
   }
 
   public void setMovieEndpointType(final MovieEndpointType movieEndpointType) {
+
+    if (movieEndpointType == null) {
+      throw new IllegalArgumentException(MovieEndpointType.class + " should not be null");
+    }
+
     if (!this.movieType.equals(movieEndpointType)) {
       this.movieType = movieEndpointType;
       movieResponseVOs.clear();
