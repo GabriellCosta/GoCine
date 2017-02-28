@@ -15,10 +15,10 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
 
   private int current_page = 1;
 
-  private LinearLayoutManager mLinearLayoutManager;
+  private LinearLayoutManager linearLayoutManager;
 
   protected EndlessRecyclerOnScrollListener(LinearLayoutManager linearLayoutManager) {
-    this.mLinearLayoutManager = linearLayoutManager;
+    this.linearLayoutManager = linearLayoutManager;
   }
 
   @Override
@@ -26,8 +26,8 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
     super.onScrolled(recyclerView, dx, dy);
 
     int visibleItemCount = recyclerView.getChildCount();
-    int totalItemCount = mLinearLayoutManager.getItemCount();
-    int firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+    int totalItemCount = linearLayoutManager.getItemCount();
+    int firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
 
     if (loading && totalItemCount > previousTotal) {
       isLoading(totalItemCount);
