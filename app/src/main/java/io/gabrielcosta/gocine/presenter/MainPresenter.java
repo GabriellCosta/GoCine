@@ -6,6 +6,7 @@ import io.gabrielcosta.gocine.model.service.MovieEndpointType;
 import io.gabrielcosta.gocine.model.service.MoviesServiceImpl;
 import io.gabrielcosta.gocine.view.MainView;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,6 +45,18 @@ public final class MainPresenter {
 
   public void getNextMoviePage() {
     getMoviesFromServer(++pageNumber);
+  }
+
+  public void setMovieEndpointType(final MovieEndpointType movieEndpointType) {
+    if (!this.movieType.equals(movieEndpointType)) {
+      this.movieType = movieEndpointType;
+      movieResponseVOs.clear();
+      pageNumber = 0;
+    }
+  }
+
+  public List<MoviesResponseVO> getMoviesListReference() {
+    return Collections.unmodifiableList(movieResponseVOs);
   }
 
   private void getMoviesFromServer(final int pageNumber) {
