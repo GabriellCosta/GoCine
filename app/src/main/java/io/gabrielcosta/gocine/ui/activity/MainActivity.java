@@ -5,9 +5,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import io.gabrielcosta.gocine.R;
 import io.gabrielcosta.gocine.adapter.PopularMoviesAdapter;
 import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
+import io.gabrielcosta.gocine.model.service.MovieEndpointType;
 import io.gabrielcosta.gocine.presenter.MainPresenter;
 import io.gabrielcosta.gocine.util.EndlessRecyclerOnScrollListener;
 import io.gabrielcosta.gocine.view.MainView;
@@ -21,6 +23,7 @@ public class MainActivity extends BaseActivity implements MainView {
   private RecyclerView recyclerView;
   private GridLayoutManager gridLayoutManager;
   private PopularMoviesAdapter adapter;
+  private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,7 @@ public class MainActivity extends BaseActivity implements MainView {
     setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
     mainPresenter = MainPresenter.newInstance(this);
-    initRecycler();
+    initRecycler(mainPresenter.getMoviesListReference());
     mainPresenter.fetchMovies();
 
   }
@@ -55,8 +58,26 @@ public class MainActivity extends BaseActivity implements MainView {
   }
 
   @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+
+    switch (item.getItemId()) {
+      case R.id.main_menu_popular:
+        mainPresenter.setMovieEndpointType(MovieEndpointType.POPULAR);
+        break;
+      case R.id.main_menu_top_rated:
+        mainPresenter.setMovieEndpointType(MovieEndpointType.TOP_RATED);
+        break;
+    }
+
+    mainPresenter.fetchMovies();
+    endlessRecyclerOnScrollListener.reset();
+
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override
   public void setPopularMovieList(List<MoviesResponseVO> movieList) {
-    adapter.addItens(movieList);
+    adapter.notifyDataSetChanged();
   }
 
   @Override
@@ -64,17 +85,18 @@ public class MainActivity extends BaseActivity implements MainView {
     showErrorMessage(errorMessage);
   }
 
-  private void initRecycler() {
+  private void initRecycler(List<MoviesResponseVO> movieList) {
     recyclerView = (RecyclerView) findViewById(R.id.rv_main);
-    adapter = new PopularMoviesAdapter();
+    adapter = new PopularMoviesAdapter(movieList);
     recyclerView.setAdapter(adapter);
     gridLayoutManager = new GridLayoutManager(this, GRID_SIZE);
     recyclerView.setLayoutManager(gridLayoutManager);
-    recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(gridLayoutManager) {
+    endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(gridLayoutManager) {
       @Override
       public void onLoadMore(final int currentPage) {
         mainPresenter.getNextMoviePage();
       }
-    });
+    };
+    recyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
   }
 }

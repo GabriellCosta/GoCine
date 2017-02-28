@@ -10,7 +10,6 @@ import com.squareup.picasso.Picasso;
 import io.gabrielcosta.gocine.R;
 import io.gabrielcosta.gocine.adapter.PopularMoviesAdapter.PopularMoviesVH;
 import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +18,12 @@ import java.util.List;
 
 public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> {
 
-  private final List<MoviesResponseVO> popularMovieVOs = new ArrayList<>();
+  private List<MoviesResponseVO> popularMovieVOs;
+
+  public PopularMoviesAdapter(
+      List<MoviesResponseVO> popularMovieVOs) {
+    this.popularMovieVOs = popularMovieVOs;
+  }
 
   @Override
   public PopularMoviesVH onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,11 +44,6 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> 
   @Override
   public int getItemCount() {
     return popularMovieVOs.size();
-  }
-
-  public void addItens(final List<MoviesResponseVO> popularMovieVOs) {
-    this.popularMovieVOs.addAll(popularMovieVOs);
-    notifyDataSetChanged();
   }
 
   private void loadImage(final ImageView imageView, final MoviesResponseVO popularMovieVO) {
