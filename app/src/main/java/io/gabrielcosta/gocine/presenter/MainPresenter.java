@@ -6,6 +6,7 @@ import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
 import io.gabrielcosta.gocine.model.service.MovieEndpointType;
 import io.gabrielcosta.gocine.model.service.MoviesServiceImpl;
 import io.gabrielcosta.gocine.view.MainView;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,8 +19,6 @@ import retrofit2.Response;
  */
 
 public final class MainPresenter {
-
-  private static final int SUCESS_RESPONSE = 200;
 
   private MainView view;
   private MoviesServiceImpl popularMovieService;
@@ -80,8 +79,10 @@ public final class MainPresenter {
           @Override
           public void onResponse(Call<MoviesResponseDTO> call,
               Response<MoviesResponseDTO> response) {
-            if (response.code() == SUCESS_RESPONSE) {
+            if (HttpURLConnection.HTTP_OK == response.code()) {
               sucessResponse(response);
+            } else {
+              view.onError(popularMovieService.parseError(response.errorBody()).getStatusMessage());
             }
           }
 
