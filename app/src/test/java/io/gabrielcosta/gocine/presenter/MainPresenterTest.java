@@ -18,7 +18,6 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import io.gabrielcosta.gocine.model.service.MovieEndpointType;
 import io.gabrielcosta.gocine.model.service.MoviesServiceImpl;
 import io.gabrielcosta.gocine.util.BaseUnitTest;
-import io.gabrielcosta.gocine.util.TestUtil;
 import io.gabrielcosta.gocine.view.MainView;
 import java.util.List;
 import org.eclipse.jetty.http.HttpStatus;
@@ -157,15 +156,6 @@ public class MainPresenterTest extends BaseUnitTest {
 
   private void mockNotFoundError() {
     stubService("/movie/popular", "not_found_404.json", HttpStatus.NOT_FOUND_404);
-  }
-
-  private void stubService(final String url, final String file, final int status) {
-    WireMock.reset();
-    stubFor(get(urlPathEqualTo(url))
-        .willReturn(aResponse()
-            .withStatus(status)
-            .withBody(TestUtil.readFile(file))));
-
   }
 
   private void stubError() {
