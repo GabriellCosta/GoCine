@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 public final class ReviewVO {
 
   @SerializedName("id")
-  private final int id;
+  private final String id;
   @SerializedName("author")
   private final String author;
   @SerializedName("content")
@@ -17,14 +17,14 @@ public final class ReviewVO {
   @SerializedName("url")
   private final String url;
 
-  private ReviewVO(int id, String author, String content, String url) {
+  private ReviewVO(String id, String author, String content, String url) {
     this.id = id;
     this.author = author;
     this.content = content;
     this.url = url;
   }
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 
