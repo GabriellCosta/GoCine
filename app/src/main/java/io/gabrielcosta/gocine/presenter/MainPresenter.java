@@ -1,7 +1,7 @@
 package io.gabrielcosta.gocine.presenter;
 
 import io.gabrielcosta.gocine.BuildConfig;
-import io.gabrielcosta.gocine.entity.dto.MoviesResponseDTO;
+import io.gabrielcosta.gocine.entity.dto.PaginatedResponseDTO;
 import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
 import io.gabrielcosta.gocine.model.service.MovieEndpointType;
 import io.gabrielcosta.gocine.model.service.MoviesServiceImpl;
@@ -75,10 +75,10 @@ public final class MainPresenter {
 
   private void getMoviesFromServer(final int pageNumber) {
     popularMovieService.fetchMovies(pageNumber, movieType)
-        .enqueue(new Callback<MoviesResponseDTO>() {
+        .enqueue(new Callback<PaginatedResponseDTO>() {
           @Override
-          public void onResponse(Call<MoviesResponseDTO> call,
-              Response<MoviesResponseDTO> response) {
+          public void onResponse(Call<PaginatedResponseDTO> call,
+              Response<PaginatedResponseDTO> response) {
             if (HttpURLConnection.HTTP_OK == response.code()) {
               sucessResponse(response);
             } else {
@@ -87,15 +87,15 @@ public final class MainPresenter {
           }
 
           @Override
-          public void onFailure(Call<MoviesResponseDTO> call, Throwable t) {
+          public void onFailure(Call<PaginatedResponseDTO> call, Throwable t) {
             view.onError(t.getMessage());
           }
         });
   }
 
-  private void sucessResponse(final Response<MoviesResponseDTO> response) {
-    view.setPopularMovieList(response.body().getMovies());
-    movieResponseVOs.addAll(response.body().getMovies());
+  private void sucessResponse(final Response<PaginatedResponseDTO> response) {
+    view.setPopularMovieList(response.body().getResults());
+    movieResponseVOs.addAll(response.body().getResults());
     MainPresenter.this.pageNumber = response.body().getPage();
   }
 

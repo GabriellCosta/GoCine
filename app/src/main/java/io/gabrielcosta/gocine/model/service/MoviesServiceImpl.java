@@ -1,6 +1,6 @@
 package io.gabrielcosta.gocine.model.service;
 
-import io.gabrielcosta.gocine.entity.dto.MoviesResponseDTO;
+import io.gabrielcosta.gocine.entity.dto.PaginatedResponseDTO;
 import io.gabrielcosta.gocine.model.retrofit.AbstractRetrofitServiceCall;
 import io.gabrielcosta.gocine.model.retrofit.RetrofitModelImpl;
 import retrofit2.Call;
@@ -22,7 +22,7 @@ public class MoviesServiceImpl extends AbstractRetrofitServiceCall {
     return new MoviesServiceImpl(RetrofitModelImpl.getInstance().getRetrofit(baseUrl, apiKey));
   }
 
-  public Call<MoviesResponseDTO> fetchMovies(final int page, final MovieEndpointType listType) {
+  public Call<PaginatedResponseDTO> fetchMovies(final int page, final MovieEndpointType listType) {
     return retrofit.fetchMovies(listType.getEndpoint(), page);
   }
 

@@ -1,6 +1,6 @@
 package io.gabrielcosta.gocine.model.service;
 
-import io.gabrielcosta.gocine.entity.dto.MoviesResponseDTO;
+import io.gabrielcosta.gocine.entity.dto.PaginatedResponseDTO;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -16,6 +16,6 @@ interface MoviesService {
   String MOVIE_TOP_RATED_ENDPOINT = "movie/top_rated";
 
   @GET
-  Call<MoviesResponseDTO> fetchMovies(@Url String url, @Query("page") int page);
+  Call<PaginatedResponseDTO> fetchMovies(@Url String url, @Query("page") int page);
 
 }
