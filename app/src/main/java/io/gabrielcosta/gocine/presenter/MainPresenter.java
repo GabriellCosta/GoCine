@@ -75,10 +75,10 @@ public final class MainPresenter {
 
   private void getMoviesFromServer(final int pageNumber) {
     popularMovieService.fetchMovies(pageNumber, movieType)
-        .enqueue(new Callback<PaginatedResponseDTO>() {
+        .enqueue(new Callback<PaginatedResponseDTO<MoviesResponseVO>>() {
           @Override
-          public void onResponse(Call<PaginatedResponseDTO> call,
-              Response<PaginatedResponseDTO> response) {
+          public void onResponse(Call<PaginatedResponseDTO<MoviesResponseVO>> call,
+              Response<PaginatedResponseDTO<MoviesResponseVO>> response) {
             if (HttpURLConnection.HTTP_OK == response.code()) {
               sucessResponse(response);
             } else {
@@ -87,13 +87,13 @@ public final class MainPresenter {
           }
 
           @Override
-          public void onFailure(Call<PaginatedResponseDTO> call, Throwable t) {
+          public void onFailure(Call<PaginatedResponseDTO<MoviesResponseVO>> call, Throwable t) {
             view.onError(t.getMessage());
           }
         });
   }
 
-  private void sucessResponse(final Response<PaginatedResponseDTO> response) {
+  private void sucessResponse(final Response<PaginatedResponseDTO<MoviesResponseVO>> response) {
     view.setPopularMovieList(response.body().getResults());
     movieResponseVOs.addAll(response.body().getResults());
     MainPresenter.this.pageNumber = response.body().getPage();
