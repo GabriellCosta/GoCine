@@ -1,8 +1,10 @@
 package io.gabrielcosta.gocine.presenter;
 
 import io.gabrielcosta.gocine.entity.dto.PaginatedResponseDTO;
+import io.gabrielcosta.gocine.entity.dto.VideoResponseDTO;
 import io.gabrielcosta.gocine.entity.vo.ErrorApiVO;
 import io.gabrielcosta.gocine.entity.vo.ReviewVO;
+import io.gabrielcosta.gocine.entity.vo.VideoVO;
 import io.gabrielcosta.gocine.model.service.MoviesServiceImpl;
 import io.gabrielcosta.gocine.view.DetailView;
 import java.net.HttpURLConnection;
@@ -52,6 +54,33 @@ public final class DetailPresenter {
         view.onError(new ErrorApiVO("Serviço indisponivel", 0));
       }
     });
+  }
+
+  public void fetchVideos(final int movieId) {
+    movieService.fetchVideos(movieId).enqueue(new Callback<VideoResponseDTO>() {
+      @Override
+      public void onResponse(Call<VideoResponseDTO> call, Response<VideoResponseDTO> response) {
+        if (response.code() == HttpURLConnection.HTTP_OK) {
+          sucessVideo(response.body());
+        } else {
+          view.onError(movieService.parseError(response.errorBody()));
+        }
+      }
+
+      @Override
+      public void onFailure(Call<VideoResponseDTO> call, Throwable t) {
+        view.onError(new ErrorApiVO("Serviço indisponivel", 0));
+      }
+    });
+  }
+
+  private void sucessVideo(final VideoResponseDTO response) {
+    List<VideoVO> result = response.getResult();
+    if (!result.isEmpty()) {
+      view.setVideos(result);
+    } else {
+      view.setEmptyVideos();
+    }
   }
 
   private void sucessReview(final PaginatedResponseDTO<ReviewVO> response) {
