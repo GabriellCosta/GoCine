@@ -20,6 +20,8 @@ import retrofit2.Response;
 
 public final class DetailPresenter {
 
+  private static final String SERVICO_INDISPONIVEL = "Serviço indisponivel";
+
   private final DetailView view;
   private final MoviesServiceImpl movieService;
 
@@ -59,7 +61,7 @@ public final class DetailPresenter {
 
       @Override
       public void onFailure(Call<PaginatedResponseDTO<ReviewVO>> call, Throwable t) {
-        view.onError(new ErrorApiVO("Serviço indisponivel", 0));
+        view.onError(genericError());
       }
     });
   }
@@ -77,7 +79,7 @@ public final class DetailPresenter {
 
       @Override
       public void onFailure(Call<VideoResponseDTO> call, Throwable t) {
-        view.onError(new ErrorApiVO("Serviço indisponivel", 0));
+        view.onError(genericError());
       }
     });
   }
@@ -98,6 +100,10 @@ public final class DetailPresenter {
     } else {
       view.setEmptyReviews();
     }
+  }
+  
+  private ErrorApiVO genericError() {
+    return new ErrorApiVO(SERVICO_INDISPONIVEL, 0);
   }
 
 }
