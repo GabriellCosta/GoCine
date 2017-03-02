@@ -25,19 +25,14 @@ public final class DetailPresenter {
   private final DetailView view;
   private final MoviesServiceImpl movieService;
 
-  private DetailPresenter(final DetailView view) {
-    this.view = view;
-    this.movieService = MoviesServiceImpl
-        .newInstance(BuildConfig.API_URL, BuildConfig.API_KEY);
-  }
-
   private DetailPresenter(final DetailView view, final MoviesServiceImpl movieService) {
     this.view = view;
     this.movieService = movieService;
   }
 
   public static DetailPresenter newInstance(final DetailView view) {
-    final DetailPresenter presenter = new DetailPresenter(view);
+    final DetailPresenter presenter = new DetailPresenter(view, MoviesServiceImpl
+        .newInstance(BuildConfig.API_URL, BuildConfig.API_KEY));
     return presenter;
   }
 

@@ -26,19 +26,14 @@ public final class MainPresenter {
   private List<MoviesResponseVO> movieResponseVOs = new ArrayList<>();
   private MovieEndpointType movieType = MovieEndpointType.POPULAR;
 
-  private MainPresenter(final MainView view) {
-    this.view = view;
-    this.popularMovieService = MoviesServiceImpl
-        .newInstance(BuildConfig.API_URL, BuildConfig.API_KEY);
-  }
-
   private MainPresenter(final MainView view, final MoviesServiceImpl moviesService) {
     this.view = view;
     this.popularMovieService = moviesService;
   }
 
   public static MainPresenter newInstance(final MainView view) {
-    return new MainPresenter(view);
+    return new MainPresenter(view, MoviesServiceImpl
+        .newInstance(BuildConfig.API_URL, BuildConfig.API_KEY));
   }
 
   static MainPresenter newInstance(final MainView view, MoviesServiceImpl popularMovieService) {
