@@ -2,6 +2,7 @@ package io.gabrielcosta.gocine.model.service;
 
 import io.gabrielcosta.gocine.entity.dto.PaginatedResponseDTO;
 import io.gabrielcosta.gocine.entity.dto.VideoResponseDTO;
+import io.gabrielcosta.gocine.entity.vo.MovieDetailVO;
 import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
 import io.gabrielcosta.gocine.entity.vo.ReviewVO;
 import io.gabrielcosta.gocine.model.retrofit.AbstractRetrofitServiceCall;
@@ -35,6 +36,10 @@ public class MoviesServiceImpl extends AbstractRetrofitServiceCall {
 
   public Call<VideoResponseDTO> fetchVideos(final int id) {
     return retrofit.fetchVideos(id);
+  }
+
+  public Call<MovieDetailVO> getMovieDetail(final int movieId) {
+    return retrofit.getMovieDetail(movieId);
   }
 
 }

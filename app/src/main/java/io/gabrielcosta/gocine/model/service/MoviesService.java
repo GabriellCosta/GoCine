@@ -2,6 +2,7 @@ package io.gabrielcosta.gocine.model.service;
 
 import io.gabrielcosta.gocine.entity.dto.PaginatedResponseDTO;
 import io.gabrielcosta.gocine.entity.dto.VideoResponseDTO;
+import io.gabrielcosta.gocine.entity.vo.MovieDetailVO;
 import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
 import io.gabrielcosta.gocine.entity.vo.ReviewVO;
 import retrofit2.Call;
@@ -20,6 +21,7 @@ interface MoviesService {
   String MOVIE_TOP_RATED_ENDPOINT = "movie/top_rated";
   String REVIEW_ENDPOINT = "movie/{id}/reviews";
   String VIDEO_ENDPOINT = "movie/{id}/videos";
+  String DETAIL_ENDPOINT = "movie/{id}";
 
   @GET
   Call<PaginatedResponseDTO<MoviesResponseVO>> fetchMovies(@Url String url, @Query("page") int page);
@@ -29,5 +31,8 @@ interface MoviesService {
 
   @GET(VIDEO_ENDPOINT)
   Call<VideoResponseDTO> fetchVideos(@Path("id") final int id);
+
+  @GET(DETAIL_ENDPOINT)
+  Call<MovieDetailVO> getMovieDetail(@Path("id") final int movieId);
 
 }
