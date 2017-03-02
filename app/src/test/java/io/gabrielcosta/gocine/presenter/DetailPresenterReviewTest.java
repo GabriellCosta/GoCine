@@ -24,7 +24,7 @@ import org.mockito.Mock;
  * Created by gabriel on 3/1/17.
  */
 
-public final class DetailPresenterTest extends BaseUnitTest {
+public final class DetailPresenterReviewTest extends BaseUnitTest {
 
   @Rule
   public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(WIRE_MOCK_PORT));
