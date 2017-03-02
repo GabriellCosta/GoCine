@@ -2,11 +2,13 @@ package io.gabrielcosta.gocine.presenter;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import io.gabrielcosta.gocine.entity.vo.ErrorApiVO;
 import io.gabrielcosta.gocine.entity.vo.ReviewVO;
 import io.gabrielcosta.gocine.model.service.MoviesServiceImpl;
 import io.gabrielcosta.gocine.util.BaseUnitTest;
@@ -55,7 +57,20 @@ public final class DetailPresenterTest extends BaseUnitTest {
         .verifySetReviewsEmpty(1);
   }
 
+  @Test
+  public void shouldCallOnError() {
+    mockUnauthorizedError();
+    robots.fetchReviews();
+    verify(view).onError(any(ErrorApiVO.class));
+  }
+
+  private void mockUnauthorizedError() {
+    stubService(urlPathMatching("/movie/.*/reviews"), "unauthorized_401.json",
+        HttpStatus.UNAUTHORIZED_401);
+  }
+
   private final class DetailRobots {
+
     private DetailRobots fetchReviews() {
       detailPresenter.fetchReviews(245891);
       sleep(DEF_SERVICE_ASYNC_WAIT);

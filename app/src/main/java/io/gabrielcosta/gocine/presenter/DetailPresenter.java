@@ -1,6 +1,7 @@
 package io.gabrielcosta.gocine.presenter;
 
 import io.gabrielcosta.gocine.entity.dto.PaginatedResponseDTO;
+import io.gabrielcosta.gocine.entity.vo.ErrorApiVO;
 import io.gabrielcosta.gocine.entity.vo.ReviewVO;
 import io.gabrielcosta.gocine.model.service.MoviesServiceImpl;
 import io.gabrielcosta.gocine.view.DetailView;
@@ -41,12 +42,14 @@ public final class DetailPresenter {
           Response<PaginatedResponseDTO<ReviewVO>> response) {
         if (response.code() == HttpURLConnection.HTTP_OK) {
           sucessReview(response.body());
+        } else {
+          view.onError(movieService.parseError(response.errorBody()));
         }
       }
 
       @Override
       public void onFailure(Call<PaginatedResponseDTO<ReviewVO>> call, Throwable t) {
-
+        view.onError(new ErrorApiVO("Serviço indisponivel", 0));
       }
     });
   }
