@@ -21,4 +21,18 @@ public interface DetailView {
 
   void onError(final ErrorApiVO errorApiVO);
 
+  void setMovieTitle(final String title);
+
+  void setMovieDescription(final String description);
+
+  void setMovieYear(final int year);
+
+  void setMovieDuration(final int duration);
+
+  void setMovieRatio(final float min, final float max);
+
+  void setMoviePoster(final String posterPath);
+
+  void setMovieBackgroundImage(final String backgroundPath);
+
 }
