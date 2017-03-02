@@ -1,5 +1,6 @@
 package io.gabrielcosta.gocine.presenter;
 
+import io.gabrielcosta.gocine.BuildConfig;
 import io.gabrielcosta.gocine.entity.dto.PaginatedResponseDTO;
 import io.gabrielcosta.gocine.entity.dto.VideoResponseDTO;
 import io.gabrielcosta.gocine.entity.vo.ErrorApiVO;
@@ -20,10 +21,17 @@ import retrofit2.Response;
 public final class DetailPresenter {
 
   private final DetailView view;
-  private MoviesServiceImpl movieService;
+  private final MoviesServiceImpl movieService;
 
   private DetailPresenter(final DetailView view) {
     this.view = view;
+    this.movieService = MoviesServiceImpl
+        .newInstance(BuildConfig.API_URL, BuildConfig.API_KEY);
+  }
+
+  private DetailPresenter(final DetailView view, final MoviesServiceImpl movieService) {
+    this.view = view;
+    this.movieService = movieService;
   }
 
   public static DetailPresenter newInstance(final DetailView view) {
@@ -31,9 +39,9 @@ public final class DetailPresenter {
     return presenter;
   }
 
-  static DetailPresenter newInstance(final DetailView view, MoviesServiceImpl popularMovieService) {
-    final DetailPresenter presenter = new DetailPresenter(view);
-    presenter.movieService = popularMovieService;
+  static DetailPresenter newInstance(final DetailView view,
+      final MoviesServiceImpl popularMovieService) {
+    final DetailPresenter presenter = new DetailPresenter(view, popularMovieService);
     return presenter;
   }
 
