@@ -20,28 +20,29 @@ import retrofit2.Response;
 
 public final class MainPresenter {
 
-  private MainView view;
-  private MoviesServiceImpl popularMovieService;
+  private final MainView view;
+  private final MoviesServiceImpl popularMovieService;
   private int pageNumber;
   private List<MoviesResponseVO> movieResponseVOs = new ArrayList<>();
   private MovieEndpointType movieType = MovieEndpointType.POPULAR;
 
-  private MainPresenter() {
+  private MainPresenter(final MainView view) {
+    this.view = view;
+    this.popularMovieService = MoviesServiceImpl
+        .newInstance(BuildConfig.API_URL, BuildConfig.API_KEY);
+  }
+
+  private MainPresenter(final MainView view, final MoviesServiceImpl moviesService) {
+    this.view = view;
+    this.popularMovieService = moviesService;
   }
 
   public static MainPresenter newInstance(final MainView view) {
-    final MainPresenter presenter = new MainPresenter();
-    presenter.view = view;
-    presenter.popularMovieService = MoviesServiceImpl
-        .newInstance(BuildConfig.API_URL, BuildConfig.API_KEY);
-    return presenter;
+    return new MainPresenter(view);
   }
 
   static MainPresenter newInstance(final MainView view, MoviesServiceImpl popularMovieService) {
-    final MainPresenter presenter = new MainPresenter();
-    presenter.view = view;
-    presenter.popularMovieService = popularMovieService;
-    return presenter;
+    return new MainPresenter(view, popularMovieService);
   }
 
   public void fetchMovies() {
