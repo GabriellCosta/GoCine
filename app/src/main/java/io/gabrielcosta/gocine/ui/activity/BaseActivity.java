@@ -13,4 +13,8 @@ public class BaseActivity extends AppCompatActivity {
     Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
   }
 
+  public <T> T findView(final int id) {
+    return (T) findViewById(id);
+  }
+
 }
