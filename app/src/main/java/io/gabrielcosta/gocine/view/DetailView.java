@@ -29,7 +29,7 @@ public interface DetailView {
 
   void setMovieDuration(final int duration);
 
-  void setMovieRatio(final float min, final float max);
+  void setMovieRatio(final float min);
 
   void setMoviePoster(final String posterPath);
 
