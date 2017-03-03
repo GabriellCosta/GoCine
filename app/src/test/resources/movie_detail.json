@@ -1,0 +1,88 @@
+{
+  "adult":false,
+  "backdrop_path":"/mFb0ygcue4ITixDkdr7wm1Tdarx.jpg",
+  "belongs_to_collection":{
+    "id":404609,
+    "name":"John Wick Collection",
+    "poster_path":"/xUidyvYFsbbuExifLkslpcd8SMc.jpg",
+    "backdrop_path":"/fSwYa5q2xRkBoOOjueLpkLf3N1m.jpg"
+  },
+  "budget":20000000,
+  "genres":[
+    {
+      "id":28,
+      "name":"Action"
+    },
+    {
+      "id":53,
+      "name":"Thriller"
+    }
+  ],
+  "homepage":"http://www.johnwickthemovie.com/",
+  "id":245891,
+  "imdb_id":"tt2911666",
+  "original_language":"en",
+  "original_title":"John Wick",
+  "overview":"After the sudden death of his beloved wife, John Wick receives one last gift from her, a beagle puppy named Daisy, and a note imploring him not to forget how to love. But John's mourning is interrupted when his 1969 Boss Mustang catches the eye of sadistic thug Iosef Tarasov who breaks into his house and steals it, beating John unconscious in the process and kills his puppy. Unwittingly, he has just reawakened one of the most brutal assassins the underworld has ever known.",
+  "popularity":47.827715,
+  "poster_path":"/5vHssUeVe25bMrof1HyaPyWgaP.jpg",
+  "production_companies":[
+    {
+      "name":"Thunder Road Pictures",
+      "id":3528
+    },
+    {
+      "name":"Warner Bros.",
+      "id":6194
+    },
+    {
+      "name":"87Eleven",
+      "id":23008
+    },
+    {
+      "name":"DefyNite Films",
+      "id":36259
+    },
+    {
+      "name":"MJW Films",
+      "id":36433
+    }
+  ],
+  "production_countries":[
+    {
+      "iso_3166_1":"CA",
+      "name":"Canada"
+    },
+    {
+      "iso_3166_1":"CN",
+      "name":"China"
+    },
+    {
+      "iso_3166_1":"US",
+      "name":"United States of America"
+    }
+  ],
+  "release_date":"2014-10-22",
+  "revenue":78739897,
+  "runtime":101,
+  "spoken_languages":[
+    {
+      "iso_639_1":"hu",
+      "name":"Magyar"
+    },
+    {
+      "iso_639_1":"en",
+      "name":"English"
+    },
+    {
+      "iso_639_1":"ru",
+      "name":"Pусский"
+    }
+  ],
+  "status":"Released",
+  "tagline":"Don't set him off.",
+  "title":"John Wick",
+  "video":false,
+  "vote_average":7.0,
+  "vote_count":3339
+}
