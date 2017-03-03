@@ -33,12 +33,12 @@ public class MoviesResponseVO {
   @SerializedName("video")
   private final boolean video;
   @SerializedName("vote_average")
-  private final double voteAverage;
+  private final float voteAverage;
 
   MoviesResponseVO(String posterPath, boolean adult, String overview,
       String releaseDate, List<Integer> genreIds, int id, String originalTitle,
       String originalLanguage, String title, String backdropPath, double popularity, int voteCount,
-      boolean video, double voteAverage) {
+      boolean video, float voteAverage) {
     this.posterPath = posterPath;
     this.adult = adult;
     this.overview = overview;
@@ -107,7 +107,7 @@ public class MoviesResponseVO {
     return video;
   }
 
-  public double getVoteAverage() {
+  public float getVoteAverage() {
     return voteAverage;
   }
 }

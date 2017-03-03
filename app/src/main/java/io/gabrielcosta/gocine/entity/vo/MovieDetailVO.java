@@ -15,7 +15,7 @@ public class MovieDetailVO extends MoviesResponseVO {
   private MovieDetailVO(String posterPath, boolean adult, String overview,
       String releaseDate, List<Integer> genreIds, int id, String originalTitle,
       String originalLanguage, String title, String backdropPath, double popularity, int voteCount,
-      boolean video, double voteAverage, int runtime) {
+      boolean video, float voteAverage, int runtime) {
     super(posterPath, adult, overview, releaseDate, genreIds, id, originalTitle, originalLanguage,
         title, backdropPath, popularity, voteCount, video, voteAverage);
     this.runtime = runtime;
