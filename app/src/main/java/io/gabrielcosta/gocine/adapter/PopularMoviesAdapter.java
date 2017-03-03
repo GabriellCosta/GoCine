@@ -4,12 +4,14 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import io.gabrielcosta.gocine.R;
 import io.gabrielcosta.gocine.adapter.PopularMoviesAdapter.PopularMoviesVH;
 import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
+import io.gabrielcosta.gocine.ui.activity.DetailActivity;
 import java.util.List;
 
 /**
@@ -39,6 +41,12 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> 
     final MoviesResponseVO popularMovieVO = popularMovieVOs.get(position);
     loadImage(holder.imageView, popularMovieVO);
     holder.itemView.setContentDescription(popularMovieVO.getTitle());
+    holder.itemView.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        DetailActivity.newInstance(v.getContext(), popularMovieVO.getId());
+      }
+    });
   }
 
   @Override
