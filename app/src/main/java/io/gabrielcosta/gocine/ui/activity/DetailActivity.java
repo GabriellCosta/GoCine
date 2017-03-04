@@ -92,7 +92,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
   @Override
   public void setMovieRatio(float min) {
     TextView textView = findView(R.id.textview_detail_ratio);
-    textView.setText(String.format("%s/10", min));
+    textView.setText(getString(R.string.movie_detail_ratio_formatable, min));
   }
 
   @Override
