@@ -86,7 +86,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
   @Override
   public void setMovieDuration(int duration) {
     TextView textView = findView(R.id.textview_detail_runtime);
-    textView.setText(String.valueOf(duration));
+    textView.setText(String.format(getString(R.string.movie_detail_runtime_formatable), duration));
   }
 
   @Override
