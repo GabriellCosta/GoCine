@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
   <RelativeLayout
@@ -19,6 +20,7 @@
         android:layout_alignParentTop="true"
         android:scaleType="center" />
       <TextView
+        tools:text="Logan"
         android:id="@+id/textview_detail_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,6 +33,7 @@
 
 
     <ImageView
+      tools:src="@drawable/movie_detail_poster_placeholder"
       android:id="@+id/imageview_detail_poster"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -39,6 +42,7 @@
       android:layout_below="@+id/rl_detail_top" />
 
     <TextView
+      tools:text="2017"
       android:id="@+id/textview_detail_year"
       style="@style/DetailMovieText"
       android:layout_width="wrap_content"
@@ -66,6 +70,7 @@
       android:layout_toRightOf="@+id/imageview_detail_poster" />
 
     <TextView
+      tools:text="n the near future, a weary Logan cares for an ailing Professor X in a hide out on the Mexican border. But Logan's attempts to hide from the world and his legacy are up-ended when a young mutant arrives, being pursued by dark forces."
       style="@style/DetailMovieText"
       android:textSize="20sp"
       android:id="@+id/textview_detail_overview"
