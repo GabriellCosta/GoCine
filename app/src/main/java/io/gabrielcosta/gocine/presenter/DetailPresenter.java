@@ -8,12 +8,9 @@ import io.gabrielcosta.gocine.entity.vo.MovieDetailVO;
 import io.gabrielcosta.gocine.entity.vo.ReviewVO;
 import io.gabrielcosta.gocine.entity.vo.VideoVO;
 import io.gabrielcosta.gocine.model.service.MoviesServiceImpl;
+import io.gabrielcosta.gocine.util.DataUtil;
 import io.gabrielcosta.gocine.view.DetailView;
 import java.net.HttpURLConnection;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -109,18 +106,7 @@ public final class DetailPresenter {
     view.setMoviePoster(detail.getPosterPath());
     view.setMovieDuration(detail.getRuntime());
     view.setMovieRatio(detail.getVoteAverage());
-    setMovieYear(detail);
-  }
-
-  private void setMovieYear(MovieDetailVO detail) {
-    try {
-      final Date parse = SimpleDateFormat.getInstance().parse(detail.getReleaseDate());
-      final Calendar calendar = Calendar.getInstance();
-      calendar.setTime(parse);
-      view.setMovieYear(calendar.get(Calendar.YEAR));
-    } catch (ParseException e) {
-      e.printStackTrace();
-    }
+    view.setMovieYear(DataUtil.getYearFromDate(detail.getReleaseDate()));
   }
 
   private void sucessVideo(final VideoResponseDTO response) {
