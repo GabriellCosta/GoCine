@@ -1,17 +1,16 @@
 package io.gabrielcosta.gocine.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import com.squareup.picasso.Picasso;
 import io.gabrielcosta.gocine.R;
 import io.gabrielcosta.gocine.adapter.PopularMoviesAdapter.PopularMoviesVH;
 import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
 import io.gabrielcosta.gocine.ui.activity.DetailActivity;
+import io.gabrielcosta.gocine.util.PicassoUtil;
 import java.util.List;
 
 /**
@@ -39,7 +38,7 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> 
   @Override
   public void onBindViewHolder(PopularMoviesVH holder, int position) {
     final MoviesResponseVO popularMovieVO = popularMovieVOs.get(position);
-    loadImage(holder.imageView, popularMovieVO);
+    PicassoUtil.buildPosterImage(holder.imageView, popularMovieVO.getPosterPath());
     holder.itemView.setContentDescription(popularMovieVO.getTitle());
     holder.itemView.setOnClickListener(new OnClickListener() {
       @Override
@@ -52,17 +51,6 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> 
   @Override
   public int getItemCount() {
     return popularMovieVOs.size();
-  }
-
-  private void loadImage(final ImageView imageView, final MoviesResponseVO popularMovieVO) {
-    Context context = imageView.getContext();
-    Picasso.with(context)
-        .load(context.getResources()
-            .getString(R.string.api_image_url,
-                context.getResources().getString(R.string.api_poster_size),
-                popularMovieVO.getPosterPath()))
-        .placeholder(R.drawable.progress_animation)
-        .into(imageView);
   }
 
   class PopularMoviesVH extends RecyclerView.ViewHolder {
