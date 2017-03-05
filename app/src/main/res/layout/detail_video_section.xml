@@ -15,7 +15,7 @@
     style="@style/DetailMovieText"
     android:layout_marginBottom="20dp"
     android:id="@+id/textview_detail_video_title"
-    android:text="@string/textview_detail_video_title"
+    android:text="@string/detail_video_sub_title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
 

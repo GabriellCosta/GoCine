@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import io.gabrielcosta.gocine.R;
 import io.gabrielcosta.gocine.adapter.ReviewAdapter;
+import io.gabrielcosta.gocine.adapter.VideoAdapter;
 import io.gabrielcosta.gocine.entity.vo.ErrorApiVO;
 import io.gabrielcosta.gocine.entity.vo.ReviewVO;
 import io.gabrielcosta.gocine.entity.vo.VideoVO;
@@ -60,12 +61,14 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   @Override
   public void setVideos(List<VideoVO> videos) {
-
+    final RecyclerView recyclerView = findView(R.id.rv_detail_video);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    recyclerView.setAdapter(new VideoAdapter(videos));
   }
 
   @Override
   public void setEmptyVideos() {
-
+    findViewById(R.id.include_detail_video).setVisibility(View.GONE);
   }
 
   @Override
@@ -128,6 +131,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
   private void fetchData() {
     presenter.getMovieDetail(movieId);
     presenter.fetchReviews(movieId);
+    presenter.fetchVideos(movieId);
   }
 
   private void setExtras() {
