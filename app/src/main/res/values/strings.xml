@@ -9,4 +9,5 @@
   <!-- Movie Detail -->
   <string name="movie_detail_runtime_formatable">%d min</string>
   <string name="movie_detail_ratio_formatable">%.1f/10</string>
+  <string name="detail_review_sub_title">Reviews</string>
 </resources>
