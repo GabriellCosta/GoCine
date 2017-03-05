@@ -5,12 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
 import io.gabrielcosta.gocine.R;
 import io.gabrielcosta.gocine.entity.vo.ErrorApiVO;
 import io.gabrielcosta.gocine.entity.vo.ReviewVO;
 import io.gabrielcosta.gocine.entity.vo.VideoVO;
 import io.gabrielcosta.gocine.presenter.DetailPresenter;
+import io.gabrielcosta.gocine.util.ImagePathUtil;
+import io.gabrielcosta.gocine.util.PicassoUtil;
 import io.gabrielcosta.gocine.view.DetailView;
 import java.util.List;
 
@@ -97,22 +98,19 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   @Override
   public void setMoviePoster(String posterPath) {
-    Picasso.with(this)
-        .load(getString(R.string.api_image_url,
-            getResources().getString(R.string.api_poster_detail_size),
-            posterPath))
-        .into(
-            (ImageView) findViewById(R.id.imageview_detail_poster));
+    final ImageView imageView = (ImageView) findViewById(R.id.imageview_detail_poster);
+    final String imagePath = ImagePathUtil
+        .getImagePath(this, R.string.api_poster_detail_size, posterPath);
+    PicassoUtil.buildImage(imageView, imagePath);
   }
 
   @Override
   public void setMovieBackgroundImage(String backgroundPath) {
-    Picasso.with(this)
-        .load(getString(R.string.api_image_url,
-            getResources().getString(R.string.api_backdrop_size),
-            backgroundPath))
-        .into(
-        (ImageView) findViewById(R.id.imageview_detail_backdrop));
+    final ImageView imageView = findView(R.id.imageview_detail_backdrop);
+    final String imagePath = ImagePathUtil
+        .getImagePath(this, R.string.api_backdrop_size, backgroundPath);
+    PicassoUtil.buildImage(imageView, imagePath);
+
   }
 
   private void init() {
@@ -120,7 +118,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
   }
 
   private void fetchData() {
-   presenter.getMovieDetail(movieId);
+    presenter.getMovieDetail(movieId);
   }
 
   private void setExtras() {
