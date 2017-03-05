@@ -3,10 +3,13 @@ package io.gabrielcosta.gocine.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 import io.gabrielcosta.gocine.R;
+import io.gabrielcosta.gocine.adapter.ReviewAdapter;
 import io.gabrielcosta.gocine.entity.vo.ErrorApiVO;
 import io.gabrielcosta.gocine.entity.vo.ReviewVO;
 import io.gabrielcosta.gocine.entity.vo.VideoVO;
@@ -44,7 +47,9 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   @Override
   public void setReviews(List<ReviewVO> reviews) {
-
+    final RecyclerView recyclerView = findView(R.id.rv_detail_review);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    recyclerView.setAdapter(new ReviewAdapter(reviews));
   }
 
   @Override
@@ -121,6 +126,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   private void fetchData() {
     presenter.getMovieDetail(movieId);
+    presenter.fetchReviews(movieId);
   }
 
   private void setExtras() {
