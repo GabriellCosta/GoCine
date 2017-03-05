@@ -4,11 +4,13 @@ import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import io.gabrielcosta.gocine.R;
 import io.gabrielcosta.gocine.adapter.VideoAdapter.VideoVH;
 import io.gabrielcosta.gocine.entity.vo.VideoVO;
+import io.gabrielcosta.gocine.util.IntentUtil;
 import java.util.List;
 
 /**
@@ -31,9 +33,15 @@ public final class VideoAdapter extends Adapter<VideoVH> {
   }
 
   @Override
-  public void onBindViewHolder(VideoVH holder, int position) {
+  public void onBindViewHolder(final VideoVH holder, int position) {
     final VideoVO videoVO = videoVOList.get(position);
     holder.name.setText(videoVO.getName());
+    holder.itemView.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        holder.itemView.getContext().startActivity(IntentUtil.buildYoutubeIntent(videoVO.getKey()));
+      }
+    });
   }
 
   @Override
