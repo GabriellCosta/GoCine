@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <TextView
+    android:id="@+id/textview_list_item_review_author"
+    style="@style/DetailMovieText"
+    tools:text="Author"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+  <TextView
+    android:layout_marginTop="15dp"
+    style="@style/DetailMovieText"
+    android:textStyle="italic"
+    android:textSize="18sp"
+    tools:text="I don't get why this movie has such good reviews. It simple and quite uninteresting. Lots of actions and well known faces (many from TV series), but nothing else. The same old brainless plot to justify tons of bullets."
+    android:id="@+id/textview_list_item_review_description"
+    android:layout_below="@+id/textview_list_item_review_author"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+</RelativeLayout>
