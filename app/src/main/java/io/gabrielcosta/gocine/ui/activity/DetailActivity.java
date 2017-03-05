@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import io.gabrielcosta.gocine.R;
@@ -54,7 +55,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   @Override
   public void setEmptyReviews() {
-
+    findViewById(R.id.include_detail_review).setVisibility(View.GONE);
   }
 
   @Override

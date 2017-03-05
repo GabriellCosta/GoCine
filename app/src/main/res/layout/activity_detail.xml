@@ -81,6 +81,7 @@
 
 
       <include
+        android:id="@+id/include_detail_review"
         android:layout_below="@+id/textview_detail_overview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
