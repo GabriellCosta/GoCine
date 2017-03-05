@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <View
+    android:id="@+id/view_detail_review_separator"
+    android:background="#FFFFFF"
+    android:layout_margin="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"/>
 
   <TextView
+    android:layout_below="@+id/view_detail_review_separator"
+    style="@style/DetailMovieText"
     android:layout_marginBottom="20dp"
     android:id="@+id/textview_detail_review_title"
     android:text="@string/detail_review_sub_title"
@@ -9,9 +20,10 @@
     android:layout_height="wrap_content" />
 
   <android.support.v7.widget.RecyclerView
+    android:overScrollMode="never"
     android:layout_below="@+id/textview_detail_review_title"
     android:id="@+id/rv_detail_review"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
 
-</merge>
+</RelativeLayout>
