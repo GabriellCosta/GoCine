@@ -1,82 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
-  <RelativeLayout
+
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar_detail"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="?attr/actionBarSize"
+    app:title="@string/app_name" />
 
-
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/toolbar_detail">
     <RelativeLayout
-      android:id="@+id/rl_detail_top"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="20dp">
-      <ImageView
-        android:id="@+id/imageview_detail_backdrop"
+      android:layout_height="wrap_content">
+
+      <RelativeLayout
+        android:id="@+id/rl_detail_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:scaleType="center" />
-      <TextView
-        tools:text="Logan"
-        android:id="@+id/textview_detail_title"
+        android:layout_marginBottom="20dp">
+        <ImageView
+          android:id="@+id/imageview_detail_backdrop"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentTop="true"
+          android:scaleType="center" />
+      </RelativeLayout>
+
+
+      <ImageView
+        android:id="@+id/imageview_detail_poster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_alignBaseline="@+id/imageview_detail_backdrop"
-        android:layout_centerVertical="true"
-        android:textSize="24sp" />
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/rl_detail_top"
+        tools:src="@drawable/movie_detail_poster_placeholder" />
+
+      <TextView
+        android:id="@+id/textview_detail_year"
+        style="@style/DetailMovieText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_detail_top"
+        android:layout_toEndOf="@+id/imageview_detail_poster"
+        android:layout_toRightOf="@+id/imageview_detail_poster"
+        tools:text="2017" />
+
+      <TextView
+        android:id="@+id/textview_detail_runtime"
+        style="@style/DetailMovieText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview_detail_year"
+        android:layout_toEndOf="@+id/imageview_detail_poster"
+        android:layout_toRightOf="@+id/imageview_detail_poster" />
+
+      <TextView
+        android:id="@+id/textview_detail_ratio"
+        style="@style/DetailMovieText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview_detail_runtime"
+        android:layout_toEndOf="@+id/imageview_detail_poster"
+        android:layout_toRightOf="@+id/imageview_detail_poster" />
+
+      <TextView
+        android:id="@+id/textview_detail_overview"
+        style="@style/DetailMovieText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageview_detail_poster"
+        android:textSize="20sp"
+        tools:text="n the near future, a weary Logan cares for an ailing Professor X in a hide out on the Mexican border. But Logan's attempts to hide from the world and his legacy are up-ended when a young mutant arrives, being pursued by dark forces." />
+
     </RelativeLayout>
-
-
-    <ImageView
-      tools:src="@drawable/movie_detail_poster_placeholder"
-      android:id="@+id/imageview_detail_poster"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="20dp"
-      android:layout_marginRight="20dp"
-      android:layout_below="@+id/rl_detail_top" />
-
-    <TextView
-      tools:text="2017"
-      android:id="@+id/textview_detail_year"
-      style="@style/DetailMovieText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/rl_detail_top"
-      android:layout_toEndOf="@+id/imageview_detail_poster"
-      android:layout_toRightOf="@+id/imageview_detail_poster" />
-
-    <TextView
-      android:id="@+id/textview_detail_runtime"
-      style="@style/DetailMovieText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/textview_detail_year"
-      android:layout_toEndOf="@+id/imageview_detail_poster"
-      android:layout_toRightOf="@+id/imageview_detail_poster" />
-
-    <TextView
-      android:id="@+id/textview_detail_ratio"
-      style="@style/DetailMovieText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/textview_detail_runtime"
-      android:layout_toEndOf="@+id/imageview_detail_poster"
-      android:layout_toRightOf="@+id/imageview_detail_poster" />
-
-    <TextView
-      tools:text="n the near future, a weary Logan cares for an ailing Professor X in a hide out on the Mexican border. But Logan's attempts to hide from the world and his legacy are up-ended when a young mutant arrives, being pursued by dark forces."
-      style="@style/DetailMovieText"
-      android:textSize="20sp"
-      android:id="@+id/textview_detail_overview"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/imageview_detail_poster" />
-
-  </RelativeLayout>
-</ScrollView>
+  </ScrollView>
+</RelativeLayout>

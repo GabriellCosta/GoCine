@@ -3,6 +3,7 @@ package io.gabrielcosta.gocine.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 import io.gabrielcosta.gocine.R;
@@ -68,8 +69,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   @Override
   public void setMovieTitle(String title) {
-    TextView textView = findView(R.id.textview_detail_title);
-    textView.setText(title);
+    getSupportActionBar().setTitle(title);
   }
 
   @Override
@@ -115,6 +115,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   private void init() {
     presenter = DetailPresenter.newInstance(this);
+    setSupportActionBar((Toolbar) findViewById(R.id.toolbar_detail));
+    getSupportActionBar().setDisplayHomeAsUpEnabled(Boolean.TRUE);
   }
 
   private void fetchData() {
