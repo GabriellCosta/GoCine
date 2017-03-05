@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <View
+    android:id="@+id/view_detail_video_separator"
+    android:background="#FFFFFF"
+    android:layout_margin="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"/>
+
+  <TextView
+    android:layout_below="@+id/view_detail_video_separator"
+    style="@style/DetailMovieText"
+    android:layout_marginBottom="20dp"
+    android:id="@+id/textview_detail_video_title"
+    android:text="@string/textview_detail_video_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+  <android.support.v7.widget.RecyclerView
+    android:overScrollMode="never"
+    android:layout_below="@+id/textview_detail_video_title"
+    android:id="@+id/rv_detail_video"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+</RelativeLayout>
