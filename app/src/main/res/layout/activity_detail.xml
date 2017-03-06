@@ -79,6 +79,17 @@
         android:textSize="20sp"
         tools:text="n the near future, a weary Logan cares for an ailing Professor X in a hide out on the Mexican border. But Logan's attempts to hide from the world and his legacy are up-ended when a young mutant arrives, being pursued by dark forces." />
 
+      <Button
+        android:drawablePadding="5dp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_toEndOf="@+id/imageview_detail_poster"
+        android:layout_toRightOf="@+id/imageview_detail_poster"
+        android:layout_below="@+id/textview_detail_ratio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/detail_button_favorite"
+        android:drawableStart="@drawable/icn_favorite"
+        android:drawableLeft="@drawable/icn_favorite"/>
 
       <include
         android:id="@+id/include_detail_review"
