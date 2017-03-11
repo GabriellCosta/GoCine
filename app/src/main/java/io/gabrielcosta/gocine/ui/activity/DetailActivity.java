@@ -1,7 +1,5 @@
 package io.gabrielcosta.gocine.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,12 +29,6 @@ public class DetailActivity extends BaseActivity implements DetailView {
   private int movieId;
 
   private DetailPresenter presenter;
-
-  public static void newInstance(final Context context, final int movieId) {
-    final Intent intent = new Intent(context, DetailActivity.class);
-    intent.putExtra(MOVIE_ID_EXTRA, movieId);
-    context.startActivity(intent);
-  }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {

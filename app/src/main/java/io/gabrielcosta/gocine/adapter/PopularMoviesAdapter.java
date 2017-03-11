@@ -1,5 +1,6 @@
 package io.gabrielcosta.gocine.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +45,9 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> 
     holder.itemView.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        DetailActivity.newInstance(v.getContext(), popularMovieVO.getId());
+        final Intent intent = new Intent(v.getContext(), DetailActivity.class);
+        intent.putExtra(DetailActivity.MOVIE_ID_EXTRA, popularMovieVO.getId());
+        v.getContext().startActivity(intent);
       }
     });
   }
