@@ -38,7 +38,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewVH> {
 
   @Override
   public int getItemCount() {
-    return reviewVOs.size();
+    return reviewVOs != null ? reviewVOs.size() : 0;
   }
 
   final class ReviewVH extends RecyclerView.ViewHolder {

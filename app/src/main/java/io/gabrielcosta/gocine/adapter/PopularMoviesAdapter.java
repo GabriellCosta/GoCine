@@ -51,7 +51,7 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> 
 
   @Override
   public int getItemCount() {
-    return popularMovieVOs.size();
+    return popularMovieVOs != null ? popularMovieVOs.size() : 0;
   }
 
   private void setPosterImage(final PopularMoviesVH holder, final MoviesResponseVO popularMovieVO) {

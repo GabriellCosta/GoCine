@@ -46,7 +46,7 @@ public final class VideoAdapter extends Adapter<VideoVH> {
 
   @Override
   public int getItemCount() {
-    return videoVOList.size();
+    return videoVOList != null ? videoVOList.size() : 0;
   }
 
   final class VideoVH extends ViewHolder {
