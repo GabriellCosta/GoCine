@@ -2,7 +2,7 @@
   <string name="app_name">GoCine</string>
 
   <string name="api_image_url">http://image.tmdb.org/t/p/%1$s%2$s</string>
-  <string name="main_menu_popular">popular</string>
+  <string name="main_menu_popular">Popular</string>
   <string name="main_menu_top_rated">Top Rated</string>
   <string name="activity_detail_extra_error">Extra de MovieId não foi passado para a intent</string>
 
