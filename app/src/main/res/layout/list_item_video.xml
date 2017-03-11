@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/textview_list_item_video_name"
+  style="@style/Widget.AppCompat.Button.Borderless"
+  android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  xmlns:tools="http://schemas.android.com/tools">
+  android:layout_marginStart="20dp"
+  android:layout_marginLeft="20dp"
+  android:drawableLeft="@drawable/ic_video_library_black_24dp"
+  android:drawablePadding="10dp"
+  android:drawableStart="@drawable/ic_video_library_black_24dp"
+  tools:text="Name" />
 
-  <TextView
-    android:layout_marginLeft="20dp"
-    android:layout_marginStart="20dp"
-    android:id="@+id/textview_list_item_video_name"
-    style="@style/DetailMovieText"
-    tools:text="Name"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
-
-</RelativeLayout>
