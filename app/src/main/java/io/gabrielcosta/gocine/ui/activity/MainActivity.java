@@ -12,6 +12,7 @@ import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
 import io.gabrielcosta.gocine.model.service.MovieEndpointType;
 import io.gabrielcosta.gocine.presenter.MainPresenter;
 import io.gabrielcosta.gocine.util.EndlessRecyclerOnScrollListener;
+import io.gabrielcosta.gocine.util.NetworkUtil;
 import io.gabrielcosta.gocine.view.MainView;
 import java.util.List;
 
@@ -33,8 +34,11 @@ public class MainActivity extends BaseActivity implements MainView {
 
     mainPresenter = MainPresenter.newInstance(this);
     initRecycler(mainPresenter.getMoviesListReference());
-    mainPresenter.fetchMovies();
-
+    if (NetworkUtil.isOnline(this)) {
+      mainPresenter.fetchMovies();
+    } else {
+      showError(R.string.no_internet_connection);
+    }
   }
 
   @Override
@@ -82,7 +86,7 @@ public class MainActivity extends BaseActivity implements MainView {
 
   @Override
   public void onError(String errorMessage) {
-    showErrorMessage(errorMessage);
+    showError(errorMessage);
   }
 
   private void initRecycler(List<MoviesResponseVO> movieList) {
@@ -94,9 +98,14 @@ public class MainActivity extends BaseActivity implements MainView {
     endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(gridLayoutManager) {
       @Override
       public void onLoadMore(final int currentPage) {
-        mainPresenter.getNextMoviePage();
+        if (NetworkUtil.isOnline(getBaseContext())) {
+          mainPresenter.getNextMoviePage();
+        } else {
+          showError(R.string.no_internet_connection);
+        }
       }
     };
     recyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
   }
+
 }

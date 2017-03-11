@@ -11,4 +11,5 @@
   <string name="movie_detail_ratio_formatable">%.1f/10</string>
   <string name="detail_review_sub_title">Reviews</string>
   <string name="detail_video_sub_title">Videos</string>
+  <string name="no_internet_connection">Sem conexão com internet</string>
 </resources>
