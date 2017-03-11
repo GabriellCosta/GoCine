@@ -49,7 +49,7 @@ public final class MainPresenter {
   }
 
   public void getNextMoviePage() {
-    getMoviesFromServer(++pageNumber);
+    getMoviesFromServer(pageNumber + 1);
   }
 
   public void setMovieEndpointType(final MovieEndpointType movieEndpointType) {
@@ -77,6 +77,7 @@ public final class MainPresenter {
               Response<PaginatedResponseDTO<MoviesResponseVO>> response) {
             if (HttpURLConnection.HTTP_OK == response.code()) {
               sucessResponse(response);
+              MainPresenter.this.pageNumber++;
             } else {
               view.onError(popularMovieService.parseError(response.errorBody()).getStatusMessage());
             }

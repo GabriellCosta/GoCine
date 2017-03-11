@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import io.gabrielcosta.gocine.R;
 import io.gabrielcosta.gocine.adapter.PopularMoviesAdapter;
 import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
@@ -34,11 +36,7 @@ public class MainActivity extends BaseActivity implements MainView {
 
     mainPresenter = MainPresenter.newInstance(this);
     initRecycler(mainPresenter.getMoviesListReference());
-    if (NetworkUtil.isOnline(this)) {
-      mainPresenter.fetchMovies();
-    } else {
-      showError(R.string.no_internet_connection);
-    }
+    tryFetchMoview();
   }
 
   @Override
@@ -98,14 +96,35 @@ public class MainActivity extends BaseActivity implements MainView {
     endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(gridLayoutManager) {
       @Override
       public void onLoadMore(final int currentPage) {
-        if (NetworkUtil.isOnline(getBaseContext())) {
-          mainPresenter.getNextMoviePage();
-        } else {
-          showError(R.string.no_internet_connection);
-        }
+        tryGetNextMoviePage();
       }
     };
     recyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
   }
 
+  private void tryFetchMoview() {
+    if (NetworkUtil.isOnline(this)) {
+      mainPresenter.fetchMovies();
+    } else {
+      showConnectionError(new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          tryFetchMoview();
+        }
+      });
+    }
+  }
+
+  private void tryGetNextMoviePage() {
+    if (NetworkUtil.isOnline(getBaseContext())) {
+      mainPresenter.getNextMoviePage();
+    } else {
+      showConnectionError(new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          tryGetNextMoviePage();
+        }
+      });
+    }
+  }
 }
