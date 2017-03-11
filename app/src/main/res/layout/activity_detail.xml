@@ -19,19 +19,13 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
 
-      <RelativeLayout
-        android:id="@+id/rl_detail_top"
+      <ImageView
+        android:id="@+id/imageview_detail_backdrop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp">
-        <ImageView
-          android:id="@+id/imageview_detail_backdrop"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_alignParentTop="true"
-          android:scaleType="center" />
-      </RelativeLayout>
-
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="20dp"
+        android:scaleType="center" />
 
       <ImageView
         android:id="@+id/imageview_detail_poster"
@@ -39,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:layout_below="@+id/rl_detail_top"
+        android:layout_below="@+id/imageview_detail_backdrop"
         tools:src="@drawable/movie_detail_poster_placeholder" />
 
       <TextView
@@ -47,7 +41,7 @@
         style="@style/DetailMovieText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_detail_top"
+        android:layout_below="@+id/imageview_detail_backdrop"
         android:layout_toEndOf="@+id/imageview_detail_poster"
         android:layout_toRightOf="@+id/imageview_detail_poster"
         tools:text="2017" />
