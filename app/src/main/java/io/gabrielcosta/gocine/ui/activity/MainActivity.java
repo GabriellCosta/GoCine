@@ -14,6 +14,7 @@ import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
 import io.gabrielcosta.gocine.model.service.MovieEndpointType;
 import io.gabrielcosta.gocine.presenter.MainPresenter;
 import io.gabrielcosta.gocine.util.EndlessRecyclerOnScrollListener;
+import io.gabrielcosta.gocine.util.GridLayoutHelper;
 import io.gabrielcosta.gocine.util.NetworkUtil;
 import io.gabrielcosta.gocine.view.MainView;
 import java.util.List;
@@ -91,7 +92,9 @@ public class MainActivity extends BaseActivity implements MainView {
     recyclerView = (RecyclerView) findViewById(R.id.rv_main);
     adapter = new PopularMoviesAdapter(movieList);
     recyclerView.setAdapter(adapter);
-    gridLayoutManager = new GridLayoutManager(this, GRID_SIZE);
+    gridLayoutManager = new GridLayoutManager(this, GridLayoutHelper
+        .getNumberOfColumns(getWindowManager(),
+            getResources().getDimensionPixelSize(R.dimen.api_post_detail_size_px)));
     recyclerView.setLayoutManager(gridLayoutManager);
     endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(gridLayoutManager) {
       @Override
