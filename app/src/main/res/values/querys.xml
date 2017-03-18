@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="query_table_movie">
+    CREATE TABLE %1$S (
+      %2$s INTEGER PRIMARY KEY,
+      %3$s TEXT NOT NULL,
+      %4$s TEXT NOT NULL,
+      %5$s TEXT NOT NULL,
+      %6$s TEXT NOT NULL,
+      %7$s TEXT NOT NULL,
+      %8$s REAL NOT NULL,
+      %9$s INTEGER NOT NULL
+    );
+  </string>
+</resources>
