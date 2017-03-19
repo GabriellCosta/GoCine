@@ -12,7 +12,7 @@ import android.net.Uri;
 
 public class MovieEntry {
 
-  private static final String PATH_MOVIE = "movie";
+  public static final String PATH_MOVIE = "movie";
 
   public static final Uri BASE_CONTENT_URI = MovieContract.BASE_CONTENT_URI.buildUpon()
       .appendPath(PATH_MOVIE).build();
