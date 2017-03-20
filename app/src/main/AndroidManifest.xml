@@ -26,6 +26,11 @@
         android:name="android.support.PARENT_ACTIVITY"
         android:value=".ui.activity.MainActivity" />
     </activity>
+
+    <provider
+      android:authorities="io.gabrielcosta.gocine"
+      android:name=".data.MovieProvider"/>
+
   </application>
 
 </manifest>

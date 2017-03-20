@@ -4,6 +4,7 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,7 +31,20 @@ public class MovieProvider extends ContentProvider {
   @Override
   public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection,
       @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-    return null;
+
+    SQLiteDatabase database = new MovieDBHelper(getContext()).getReadableDatabase();
+    final Cursor cursor;
+    switch (buildUriMatcher().match(uri)) {
+      case MOVIE:
+        cursor = database
+            .query(MovieEntry.TABLE_NAME, projection, selection, selectionArgs, null, null,
+                sortOrder);
+        break;
+      default:
+        throw new UnsupportedOperationException("Unknown uri: " + uri);
+    }
+
+    return cursor;
   }
 
   @Nullable
@@ -50,13 +64,38 @@ public class MovieProvider extends ContentProvider {
   @Nullable
   @Override
   public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-    return null;
+
+    SQLiteDatabase writableDatabase = new MovieDBHelper(getContext()).getWritableDatabase();
+
+    switch (buildUriMatcher().match(uri)) {
+      case MOVIE:
+        final long insert = writableDatabase.insert(MovieEntry.TABLE_NAME, null, values);
+        if (insert > 0) {
+          return MovieEntry.buildMovieUri(insert);
+        } else {
+          throw new android.database.SQLException("Failed to insert row into " + uri);
+        }
+      default:
+        throw new UnsupportedOperationException("Unknown uri: " + uri);
+    }
   }
 
   @Override
   public int delete(@NonNull Uri uri, @Nullable String selection,
       @Nullable String[] selectionArgs) {
-    return 0;
+    SQLiteDatabase writableDatabase = new MovieDBHelper(getContext()).getWritableDatabase();
+
+    final int rowDeleted;
+    selection = selection == null ? "1" : selection;
+    switch (buildUriMatcher().match(uri)) {
+      case MOVIE:
+        rowDeleted = writableDatabase.delete(MovieEntry.TABLE_NAME, selection, selectionArgs);
+        break;
+      default:
+        throw new UnsupportedOperationException("Unknown uri: " + uri);
+    }
+
+    return rowDeleted;
   }
 
   @Override

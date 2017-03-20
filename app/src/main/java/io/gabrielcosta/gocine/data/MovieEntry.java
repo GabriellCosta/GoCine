@@ -33,7 +33,16 @@ public class MovieEntry {
   public static final String COLUMN_VOTE_AVERAGE = "vote_average";
   public static final String COLUMN_RUNTIME = "runtime";
 
-  public static Uri buildMovieUri(final int id) {
+  public static final int COLUMN_ID_INDEX = 0;
+  public static final int COLUMN_TITLE_INDEX = 1;
+  public static final int COLUMN_POSTER_INDEX = 2;
+  public static final int COLUMN_BACKDROP_INDEX = 3;
+  public static final int COLUMN_OVERVIEW_INDEX = 4;
+  public static final int COLUMN_RELEASE_DATE_INDEX = 5;
+  public static final int COLUMN_VOTE_AVERAGE_INDEX = 6;
+  public static final int COLUMN_RUNTIME_INDEX = 7;
+
+  public static Uri buildMovieUri(final long id) {
     return ContentUris.withAppendedId(BASE_CONTENT_URI, id);
   }
 }
