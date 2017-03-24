@@ -29,6 +29,7 @@ public final class MovieEntryTest {
   public static final int COLUMN_RUNTIME_VALUE = 12;
   public static final double COLUMN_AVERAGE_VALUE = 35.4;
   public static final int COLUMN_DATE_VALUE = 31231231;
+  public static final String ALTERED_TITLE = "Altered Title";
   private Context context;
 
   @Before
@@ -83,6 +84,47 @@ public final class MovieEntryTest {
 
     validateGeneratedMovieValues(cursor);
 
+  }
+
+  @Test
+  public void shouldDelete() {
+
+    context.getContentResolver()
+        .insert(MovieEntry.BASE_CONTENT_URI, generateMoviesValues());
+
+    final int delete = context.getContentResolver().delete(MovieEntry.BASE_CONTENT_URI, null, null);
+    assertTrue("Values still remain on database", delete > 0);
+  }
+
+  @Test
+  public void shouldQuery() {
+    context.getContentResolver()
+        .insert(MovieEntry.BASE_CONTENT_URI, generateMoviesValues());
+
+    Cursor query = context.getContentResolver()
+        .query(MovieEntry.BASE_CONTENT_URI, null, null, null, null);
+
+    validateGeneratedMovieValues(query);
+  }
+
+  @Test
+  public void shouldUpdate() {
+    context.getContentResolver()
+        .insert(MovieEntry.BASE_CONTENT_URI, generateMoviesValues());
+    ContentValues updatedValues = generateMoviesValues();
+
+    updatedValues.put(MovieEntry.COLUMN_TITLE, ALTERED_TITLE);
+    int update = context.getContentResolver()
+        .update(MovieEntry.BASE_CONTENT_URI, updatedValues, MovieEntry.COLUMN_TITLE +"=?",
+            new String[]{COLUMN_TITLE_VALUE});
+
+    assertTrue("No rows are updated", update > 0);
+
+    final Cursor query = context.getContentResolver()
+        .query(MovieEntry.BASE_CONTENT_URI, null, null, null, null);
+
+    assertTrue("Update don't has values to query", query.moveToFirst());
+    assertEquals(query.getString(MovieEntry.COLUMN_TITLE_INDEX), ALTERED_TITLE);
   }
 
   private ContentValues generateMoviesValues() {

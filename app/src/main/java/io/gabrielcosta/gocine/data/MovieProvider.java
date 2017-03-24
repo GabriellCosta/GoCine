@@ -101,7 +101,14 @@ public class MovieProvider extends ContentProvider {
   @Override
   public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection,
       @Nullable String[] selectionArgs) {
-    return 0;
+    SQLiteDatabase writableDatabase = new MovieDBHelper(getContext()).getWritableDatabase();
+
+    switch (buildUriMatcher().match(uri)) {
+      case MOVIE:
+        return writableDatabase.update(MovieEntry.TABLE_NAME, values, selection, selectionArgs);
+      default:
+        throw new UnsupportedOperationException("Unknown uri: " + uri);
+    }
   }
 
   static UriMatcher buildUriMatcher() {
