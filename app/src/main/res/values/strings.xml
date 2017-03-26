@@ -13,4 +13,6 @@
   <string name="detail_video_sub_title">Videos</string>
   <string name="no_internet_connection">Sem conexão com internet</string>
   <string name="all_try_again">Tentar novamente</string>
+  <string name="detail_favorite">Favorite</string>
+  <string name="detail_favorited">Favorited</string>
 </resources>

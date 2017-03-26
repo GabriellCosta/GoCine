@@ -64,6 +64,15 @@
         android:layout_toEndOf="@+id/imageview_detail_poster"
         android:layout_toRightOf="@+id/imageview_detail_poster" />
 
+      <Button
+        android:id="@+id/button_detail_favorite"
+        android:layout_toEndOf="@+id/imageview_detail_poster"
+        android:layout_toRightOf="@+id/imageview_detail_poster"
+        android:layout_below="@+id/textview_detail_ratio"
+        android:text="@string/detail_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
       <TextView
         android:id="@+id/textview_detail_overview"
         style="@style/DetailMovieText"

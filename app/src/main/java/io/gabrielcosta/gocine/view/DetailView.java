@@ -35,4 +35,8 @@ public interface DetailView {
 
   void setMovieBackgroundImage(final String backgroundPath);
 
+  void setFavorite();
+
+  void showFavoriteOption(final boolean show);
+
 }

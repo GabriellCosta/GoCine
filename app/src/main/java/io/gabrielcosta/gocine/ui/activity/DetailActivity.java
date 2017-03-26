@@ -5,14 +5,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import io.gabrielcosta.gocine.R;
 import io.gabrielcosta.gocine.adapter.ReviewAdapter;
 import io.gabrielcosta.gocine.adapter.VideoAdapter;
 import io.gabrielcosta.gocine.entity.vo.ErrorApiVO;
 import io.gabrielcosta.gocine.entity.vo.ReviewVO;
 import io.gabrielcosta.gocine.entity.vo.VideoVO;
+import io.gabrielcosta.gocine.model.FavoriteContextPackage;
 import io.gabrielcosta.gocine.presenter.DetailPresenter;
 import io.gabrielcosta.gocine.util.ImagePathUtil;
 import io.gabrielcosta.gocine.util.PicassoUtil;
@@ -29,6 +33,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
   private int movieId;
 
   private DetailPresenter presenter;
+  private Button favoriteButton;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -114,16 +119,40 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   }
 
+  @Override
+  public void setFavorite() {
+    Toast.makeText(this, "Salvo", Toast.LENGTH_LONG).show();
+    favoriteButton.setText(getString(R.string.detail_favorited));
+  }
+
+  @Override
+  public void showFavoriteOption(boolean show) {
+    if (show) {
+      favoriteButton.setText(getString(R.string.detail_favorited));
+    }
+
+    favoriteButton.setClickable(!show);
+  }
+
   private void init() {
-    presenter = DetailPresenter.newInstance(this);
+    presenter = DetailPresenter.newInstance(this, new FavoriteContextPackage(this));
     setSupportActionBar((Toolbar) findViewById(R.id.toolbar_detail));
     getSupportActionBar().setDisplayHomeAsUpEnabled(Boolean.TRUE);
+
+    favoriteButton = (Button) findViewById(R.id.button_detail_favorite);
+    favoriteButton.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        presenter.favoriteMovie();
+      }
+    });
   }
 
   private void fetchData() {
     presenter.getMovieDetail(movieId);
     presenter.fetchReviews(movieId);
     presenter.fetchVideos(movieId);
+    presenter.checkMovieExistence(movieId);
   }
 
   private void setExtras() {

@@ -7,6 +7,8 @@ import io.gabrielcosta.gocine.entity.vo.ErrorApiVO;
 import io.gabrielcosta.gocine.entity.vo.MovieDetailVO;
 import io.gabrielcosta.gocine.entity.vo.ReviewVO;
 import io.gabrielcosta.gocine.entity.vo.VideoVO;
+import io.gabrielcosta.gocine.model.FavoriteContextPackage;
+import io.gabrielcosta.gocine.model.FavoriteMovieModel;
 import io.gabrielcosta.gocine.model.service.MoviesServiceImpl;
 import io.gabrielcosta.gocine.util.DataUtil;
 import io.gabrielcosta.gocine.view.DetailView;
@@ -26,21 +28,28 @@ public final class DetailPresenter {
 
   private final DetailView view;
   private final MoviesServiceImpl movieService;
+  private MovieDetailVO movieDetailVO;
+  private final FavoriteMovieModel favoriteMovieModel;
 
-  private DetailPresenter(final DetailView view, final MoviesServiceImpl movieService) {
+  private DetailPresenter(final DetailView view, final MoviesServiceImpl movieService,
+      FavoriteMovieModel favoriteMovieModel) {
     this.view = view;
     this.movieService = movieService;
+    this.favoriteMovieModel = favoriteMovieModel;
   }
 
-  public static DetailPresenter newInstance(final DetailView view) {
+  public static DetailPresenter newInstance(final DetailView view,
+      FavoriteContextPackage contextPackage) {
     final DetailPresenter presenter = new DetailPresenter(view, MoviesServiceImpl
-        .newInstance(BuildConfig.API_URL, BuildConfig.API_KEY));
+        .newInstance(BuildConfig.API_URL, BuildConfig.API_KEY),
+        new FavoriteMovieModel(contextPackage));
     return presenter;
   }
 
   static DetailPresenter newInstance(final DetailView view,
       final MoviesServiceImpl popularMovieService) {
-    final DetailPresenter presenter = new DetailPresenter(view, popularMovieService);
+    final DetailPresenter presenter = new DetailPresenter(view, popularMovieService,
+        new FavoriteMovieModel(null));
     return presenter;
   }
 
@@ -99,7 +108,18 @@ public final class DetailPresenter {
     });
   }
 
+  public void favoriteMovie() {
+    favoriteMovieModel.saveMovieOnDatabase(movieDetailVO);
+    view.setFavorite();
+  }
+
+  public void checkMovieExistence(int movieId) {
+    boolean saved = favoriteMovieModel.isSaved(movieId);
+    view.showFavoriteOption(saved);
+  }
+
   private void sucessDetail(final MovieDetailVO detail) {
+    movieDetailVO = detail;
     view.setMovieTitle(detail.getTitle());
     view.setMovieDescription(detail.getOverview());
     view.setMovieBackgroundImage(detail.getBackdropPath());
