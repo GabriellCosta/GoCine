@@ -11,7 +11,14 @@
     android:layout_height="?attr/actionBarSize"
     app:title="@string/app_name" />
 
+  <ProgressBar
+    android:id="@+id/progressbar_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+
   <ScrollView
+    android:id="@+id/sv_detail"
+    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@+id/toolbar_detail">

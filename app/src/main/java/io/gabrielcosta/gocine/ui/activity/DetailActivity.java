@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import io.gabrielcosta.gocine.R;
@@ -34,6 +35,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   private DetailPresenter presenter;
   private Button favoriteButton;
+  private ProgressBar progress;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
   @Override
   public void setMovieTitle(String title) {
     getSupportActionBar().setTitle(title);
+    removeProgressBar();
   }
 
   @Override
@@ -138,7 +141,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
     presenter = DetailPresenter.newInstance(this, new FavoriteContextPackage(this));
     setSupportActionBar((Toolbar) findViewById(R.id.toolbar_detail));
     getSupportActionBar().setDisplayHomeAsUpEnabled(Boolean.TRUE);
-
+    progress = (ProgressBar) findViewById(R.id.progressbar_detail);
     favoriteButton = (Button) findViewById(R.id.button_detail_favorite);
     favoriteButton.setOnClickListener(new OnClickListener() {
       @Override
@@ -162,5 +165,10 @@ public class DetailActivity extends BaseActivity implements DetailView {
     } else {
       throw new RuntimeException(getString(R.string.activity_detail_extra_error));
     }
+  }
+
+  private void removeProgressBar() {
+    progress.setVisibility(View.GONE);
+    findViewById(R.id.sv_detail).setVisibility(View.VISIBLE);
   }
 }
