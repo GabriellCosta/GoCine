@@ -1,6 +1,8 @@
 package io.gabrielcosta.gocine.entity.vo;
 
+import android.database.Cursor;
 import com.google.gson.annotations.SerializedName;
+import io.gabrielcosta.gocine.data.MovieEntry;
 import java.util.List;
 
 /**
@@ -19,6 +21,18 @@ public class MovieDetailVO extends MoviesResponseVO {
     super(posterPath, adult, overview, releaseDate, genreIds, id, originalTitle, originalLanguage,
         title, backdropPath, popularity, voteCount, video, voteAverage);
     this.runtime = runtime;
+  }
+
+  public MovieDetailVO(final Cursor cursor) {
+    super(cursor.getString(MovieEntry.COLUMN_POSTER_INDEX), Boolean.FALSE,
+        cursor.getString(MovieEntry.COLUMN_OVERVIEW_INDEX),
+        cursor.getString(MovieEntry.COLUMN_RELEASE_DATE_INDEX), null,
+        cursor.getInt(MovieEntry.COLUMN_ID_INDEX), null,
+        null,
+        cursor.getString(MovieEntry.COLUMN_TITLE_INDEX),
+        cursor.getString(MovieEntry.COLUMN_BACKDROP_INDEX), 0, 0, Boolean.FALSE,
+        cursor.getFloat(MovieEntry.COLUMN_VOTE_AVERAGE_INDEX));
+    runtime = cursor.getInt(MovieEntry.COLUMN_RUNTIME_INDEX);
   }
 
   public int getRuntime() {

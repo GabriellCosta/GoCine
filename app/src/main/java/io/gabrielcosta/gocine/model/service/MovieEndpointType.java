@@ -5,7 +5,8 @@ package io.gabrielcosta.gocine.model.service;
  */
 
 public enum MovieEndpointType {
-  POPULAR(MoviesService.MOVIE_POPULAR_ENDPOINT), TOP_RATED(MoviesService.MOVIE_TOP_RATED_ENDPOINT);
+  POPULAR(MoviesService.MOVIE_POPULAR_ENDPOINT), TOP_RATED(MoviesService.MOVIE_TOP_RATED_ENDPOINT),
+  FAVORITE("");
 
   private final String endpoint;
 

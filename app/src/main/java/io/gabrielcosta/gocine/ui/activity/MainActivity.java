@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import io.gabrielcosta.gocine.R;
 import io.gabrielcosta.gocine.adapter.PopularMoviesAdapter;
 import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
+import io.gabrielcosta.gocine.model.FavoriteContextPackage;
 import io.gabrielcosta.gocine.model.service.MovieEndpointType;
 import io.gabrielcosta.gocine.presenter.MainPresenter;
 import io.gabrielcosta.gocine.util.EndlessRecyclerOnScrollListener;
@@ -35,7 +36,7 @@ public class MainActivity extends BaseActivity implements MainView {
     setContentView(R.layout.activity_main);
     setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
-    mainPresenter = MainPresenter.newInstance(this);
+    mainPresenter = MainPresenter.newInstance(this, new FavoriteContextPackage(this));
     initRecycler(mainPresenter.getMoviesListReference());
     tryFetchMoview();
   }
@@ -69,6 +70,9 @@ public class MainActivity extends BaseActivity implements MainView {
         break;
       case R.id.main_menu_top_rated:
         mainPresenter.setMovieEndpointType(MovieEndpointType.TOP_RATED);
+        break;
+      case R.id.main_menu_favorite:
+        mainPresenter.setMovieEndpointType(MovieEndpointType.FAVORITE);
         break;
     }
 
@@ -119,13 +123,14 @@ public class MainActivity extends BaseActivity implements MainView {
   }
 
   private void tryGetNextMoviePage() {
-    if (NetworkUtil.isOnline(getBaseContext())) {
+    if (NetworkUtil.isOnline(getBaseContext()) && !mainPresenter.getMovieType()
+        .equals(MovieEndpointType.FAVORITE)) {
       mainPresenter.getNextMoviePage();
     } else {
       showConnectionError(new OnClickListener() {
         @Override
         public void onClick(View v) {
-          tryGetNextMoviePage();
+          tryFetchMoview();
         }
       });
     }

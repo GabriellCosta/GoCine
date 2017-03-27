@@ -15,4 +15,5 @@
   <string name="all_try_again">Tentar novamente</string>
   <string name="detail_favorite">Favorite</string>
   <string name="detail_favorited">Favorited</string>
+  <string name="main_menu_favorite">Favorite</string>
 </resources>

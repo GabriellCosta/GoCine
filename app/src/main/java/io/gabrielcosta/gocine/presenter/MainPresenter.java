@@ -3,6 +3,8 @@ package io.gabrielcosta.gocine.presenter;
 import io.gabrielcosta.gocine.BuildConfig;
 import io.gabrielcosta.gocine.entity.dto.PaginatedResponseDTO;
 import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
+import io.gabrielcosta.gocine.model.FavoriteContextPackage;
+import io.gabrielcosta.gocine.model.FavoriteMovieModel;
 import io.gabrielcosta.gocine.model.service.MovieEndpointType;
 import io.gabrielcosta.gocine.model.service.MoviesServiceImpl;
 import io.gabrielcosta.gocine.view.MainView;
@@ -25,26 +27,31 @@ public final class MainPresenter {
   private int pageNumber;
   private List<MoviesResponseVO> movieResponseVOs = new ArrayList<>();
   private MovieEndpointType movieType = MovieEndpointType.POPULAR;
+  private final FavoriteMovieModel favoriteMovieModel;
 
-  private MainPresenter(final MainView view, final MoviesServiceImpl moviesService) {
+  private MainPresenter(final MainView view, final MoviesServiceImpl moviesService,
+      FavoriteMovieModel favoriteMovieModel) {
     this.view = view;
     this.popularMovieService = moviesService;
+    this.favoriteMovieModel = favoriteMovieModel;
   }
 
-  public static MainPresenter newInstance(final MainView view) {
+  public static MainPresenter newInstance(final MainView view,
+      FavoriteContextPackage contextPackage) {
     return new MainPresenter(view, MoviesServiceImpl
-        .newInstance(BuildConfig.API_URL, BuildConfig.API_KEY));
+        .newInstance(BuildConfig.API_URL, BuildConfig.API_KEY),
+        new FavoriteMovieModel(contextPackage));
   }
 
   static MainPresenter newInstance(final MainView view, MoviesServiceImpl popularMovieService) {
-    return new MainPresenter(view, popularMovieService);
+    return new MainPresenter(view, popularMovieService, new FavoriteMovieModel(null));
   }
 
   public void fetchMovies() {
-    if (movieResponseVOs == null || movieResponseVOs.isEmpty()) {
-      getMoviesFromServer(++pageNumber);
+    if (movieType.equals(MovieEndpointType.FAVORITE)) {
+      getMoviesFromDB();
     } else {
-      view.setPopularMovieList(movieResponseVOs);
+      getMoviesFromInternet();
     }
   }
 
@@ -69,6 +76,10 @@ public final class MainPresenter {
     return Collections.unmodifiableList(movieResponseVOs);
   }
 
+  public MovieEndpointType getMovieType() {
+    return movieType;
+  }
+
   private void getMoviesFromServer(final int pageNumber) {
     popularMovieService.fetchMovies(pageNumber, movieType)
         .enqueue(new Callback<PaginatedResponseDTO<MoviesResponseVO>>() {
@@ -88,6 +99,22 @@ public final class MainPresenter {
             view.onError(t.getMessage());
           }
         });
+  }
+
+  private void getMoviesFromInternet() {
+    if (movieResponseVOs == null || movieResponseVOs.isEmpty()) {
+      getMoviesFromServer(++pageNumber);
+    } else {
+      view.setPopularMovieList(movieResponseVOs);
+    }
+  }
+
+  private void getMoviesFromDB() {
+    movieResponseVOs.clear();
+    List<MoviesResponseVO> moviesFavorite = favoriteMovieModel.fetchMovieList();
+    movieResponseVOs.addAll(moviesFavorite);
+    pageNumber = 0;
+    view.setPopularMovieList(moviesFavorite);
   }
 
   private void sucessResponse(final Response<PaginatedResponseDTO<MoviesResponseVO>> response) {

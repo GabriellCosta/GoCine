@@ -12,6 +12,7 @@ import io.gabrielcosta.gocine.adapter.PopularMoviesAdapter.PopularMoviesVH;
 import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
 import io.gabrielcosta.gocine.ui.activity.DetailActivity;
 import io.gabrielcosta.gocine.util.ImagePathUtil;
+import io.gabrielcosta.gocine.util.NetworkUtil;
 import io.gabrielcosta.gocine.util.PicassoUtil;
 import java.util.List;
 
@@ -45,9 +46,11 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesVH> 
     holder.itemView.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        final Intent intent = new Intent(v.getContext(), DetailActivity.class);
-        intent.putExtra(DetailActivity.MOVIE_ID_EXTRA, popularMovieVO.getId());
-        v.getContext().startActivity(intent);
+        if (NetworkUtil.isOnline(v.getContext())) {
+          final Intent intent = new Intent(v.getContext(), DetailActivity.class);
+          intent.putExtra(DetailActivity.MOVIE_ID_EXTRA, popularMovieVO.getId());
+          v.getContext().startActivity(intent);
+        }
       }
     });
   }

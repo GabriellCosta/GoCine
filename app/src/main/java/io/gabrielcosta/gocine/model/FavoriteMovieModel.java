@@ -5,6 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import io.gabrielcosta.gocine.data.MovieEntry;
 import io.gabrielcosta.gocine.entity.vo.MovieDetailVO;
+import io.gabrielcosta.gocine.entity.vo.MoviesResponseVO;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by gabrielcosta on 24/03/17.
@@ -36,6 +40,21 @@ public final class FavoriteMovieModel {
     final boolean result = cursor.getCount() > 0;
     cursor.close();
     return result;
+  }
+
+  public List<MoviesResponseVO> fetchMovieList() {
+    final Cursor cursor = context.getContentResolver()
+        .query(MovieEntry.BASE_CONTENT_URI, null,
+            null, null, null);
+
+    List<MoviesResponseVO> resultList = new ArrayList<>();
+
+    while (cursor.moveToNext()) {
+      resultList.add(new MovieDetailVO(cursor));
+    }
+
+    cursor.close();
+    return Collections.unmodifiableList(resultList);
   }
 
   private ContentValues generateContentValues(final MovieDetailVO movieDetailVO) {
