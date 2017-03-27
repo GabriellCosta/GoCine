@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="20dp"
-        android:scaleType="center" />
+        android:scaleType="fitXY" />
 
       <ImageView
         android:id="@+id/imageview_detail_poster"
