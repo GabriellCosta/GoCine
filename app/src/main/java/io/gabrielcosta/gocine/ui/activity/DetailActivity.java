@@ -147,6 +147,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
       @Override
       public void onClick(View v) {
         presenter.favoriteMovie();
+        v.setClickable(Boolean.FALSE);
+        favoriteButton.setText(getString(R.string.detail_favorited));
       }
     });
   }
